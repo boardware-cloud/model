@@ -15,21 +15,3 @@ func NewConnection(user, password, host, port, database string) (db *gorm.DB, er
 	db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	return db, err
 }
-
-type MayBe[T any] struct {
-	Data *T
-}
-
-func (m MayBe[T]) Just(f func(data T)) MayBe[T] {
-	if m.Data != nil {
-		f(*m.Data)
-	}
-	return m
-}
-
-func (m MayBe[T]) Nothing(f func()) MayBe[T] {
-	if m.Data == nil {
-		f()
-	}
-	return m
-}
