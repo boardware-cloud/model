@@ -43,6 +43,7 @@ type Monitor struct {
 	Records              []MonitoringRecord
 	Alert                []UptimeMonitorAlert
 	Body                 *string
+	Headers              *common.PairList `json:"headers"`
 }
 
 func (m *Monitor) BeforeCreate(tx *gorm.DB) (err error) {
@@ -60,7 +61,8 @@ type MonitoringRecord struct {
 	StatusCode   string
 	Result       constants.MonitoringResult `gorm:"type:VARCHAR(128)"`
 	ResponseTime *int64
-	Body         *string
+	Body         *string          `json:"body"`
+	Headers      *common.PairList `json:"headers"`
 }
 
 func (m *MonitoringRecord) BeforeCreate(tx *gorm.DB) (err error) {
