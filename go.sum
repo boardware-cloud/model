@@ -42,6 +42,8 @@ github.com/boardware-cloud/common v0.0.0-20230817020532-8864de6ed385 h1:5uy7ti4z
 github.com/boardware-cloud/common v0.0.0-20230817020532-8864de6ed385/go.mod h1:Ztn+PIPt9IhKncTFySl6LOyMhCV+AseebVcV5dDE18Y=
 github.com/boardware-cloud/common v0.0.0-20230823060450-b9e5e290e867 h1:Hi+8hcO5SuDeKJszaxxqrDpGwPBXU6KR0Mm+WmpgfjM=
 github.com/boardware-cloud/common v0.0.0-20230823060450-b9e5e290e867/go.mod h1:Ztn+PIPt9IhKncTFySl6LOyMhCV+AseebVcV5dDE18Y=
+github.com/boardware-cloud/common v0.0.0-20230823061101-698648f3cc6a h1:QjIAeUMz+NA0l8olIQipKGj2vFmXnJCpsFSx4ovdmrA=
+github.com/boardware-cloud/common v0.0.0-20230823061101-698648f3cc6a/go.mod h1:Ztn+PIPt9IhKncTFySl6LOyMhCV+AseebVcV5dDE18Y=
 github.com/bwmarrin/snowflake v0.3.0 h1:xm67bEhkKh6ij1790JB83OujPR5CzNe8QuQqAgISZN0=
 github.com/bwmarrin/snowflake v0.3.0/go.mod h1:NdZxfVWX+oR6y2K0o6qAYv6gIOP9rjG0/E9WsDpxqwE=
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=

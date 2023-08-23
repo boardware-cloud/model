@@ -64,7 +64,7 @@ type MonitoringRecord struct {
 	ResponseTime *int64
 	Body         *string                 `json:"body"`
 	Headers      *common.PairList        `json:"headers"`
-	BodyForm     *constants.HttpBodyType `json:"bodyForm"`
+	BodyForm     *constants.HttpBodyForm `json:"bodyForm"`
 	ContentType  *constants.ContentType  `json:"contentType"`
 }
 
