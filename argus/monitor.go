@@ -62,8 +62,10 @@ type MonitoringRecord struct {
 	StatusCode   string
 	Result       constants.MonitoringResult `gorm:"type:VARCHAR(128)"`
 	ResponseTime *int64
-	Body         *string          `json:"body"`
-	Headers      *common.PairList `json:"headers"`
+	Body         *string                 `json:"body"`
+	Headers      *common.PairList        `json:"headers"`
+	BodyForm     *constants.HttpBodyType `json:"bodyForm"`
+	ContentType  *constants.ContentType  `json:"contentType"`
 }
 
 func (m *MonitoringRecord) BeforeCreate(tx *gorm.DB) (err error) {
