@@ -42,9 +42,11 @@ type Monitor struct {
 	NotificationInterval int64         `json:"notificationInterval"`
 	Records              []MonitoringRecord
 	Alert                []UptimeMonitorAlert
-	Body                 *string
-	Headers              *common.PairList   `json:"headers"`
-	AcceptedStatusCodes  *common.StringList `json:"acceptedStatusCodes"`
+	BodyRaw              *string                 `json:"bodyRaw"`
+	BodyForm             *constants.HttpBodyForm `json:"bodyForm"`
+	ContentType          *constants.ContentType  `json:"contentType"`
+	Headers              *common.PairList        `json:"headers"`
+	AcceptedStatusCodes  *common.StringList      `json:"acceptedStatusCodes"`
 }
 
 func (m *Monitor) BeforeCreate(tx *gorm.DB) (err error) {
