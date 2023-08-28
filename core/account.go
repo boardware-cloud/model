@@ -14,6 +14,7 @@ type Account struct {
 	Password string         `json:"password" gorm:"type:CHAR(128)"`
 	Salt     []byte         `json:"salt"`
 	Role     constants.Role `json:"role" gorm:"type:VARCHAR(128)"`
+	Totp     *string
 }
 
 func (a *Account) BeforeCreate(tx *gorm.DB) (err error) {
