@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 
 	"github.com/boardware-cloud/common/constants"
+	"github.com/boardware-cloud/common/errors"
 	"github.com/boardware-cloud/common/utils"
 	"github.com/chenyunda218/golambda"
 	"github.com/go-webauthn/webauthn/webauthn"
@@ -21,6 +22,14 @@ type Account struct {
 	Totp               *string
 	WebAuthnCredential []Credential
 	WebAuthnSession    []SessionData
+}
+
+func GetAccountByEmail(email string) (Account, *errors.Error) {
+	var account Account
+	if ctx := db.Where("email = ?", email).Find(&account); ctx.RowsAffected == 0 {
+		return account, errors.NotFoundError()
+	}
+	return account, nil
 }
 
 func (a Account) WebAuthnID() []byte {
@@ -90,6 +99,7 @@ func (WebAuthnCredential) GormDataType() string {
 
 type Credential struct {
 	gorm.Model
+	Name       string
 	Credential WebAuthnCredential
 	AccountId  uint
 }
