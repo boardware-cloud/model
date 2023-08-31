@@ -24,6 +24,14 @@ type Account struct {
 	WebAuthnSession    []SessionData
 }
 
+func GetAccount(id uint) (Account, *errors.Error) {
+	var account Account
+	if ctx := db.Find(&account, id); ctx.RowsAffected == 0 {
+		return account, errors.NotFoundError()
+	}
+	return account, nil
+}
+
 func GetAccountByEmail(email string) (Account, *errors.Error) {
 	var account Account
 	if ctx := db.Where("email = ?", email).Find(&account); ctx.RowsAffected == 0 {
