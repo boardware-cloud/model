@@ -13,14 +13,14 @@ import (
 
 type Account struct {
 	gorm.Model
-	ID                 uint           `gorm:"primarykey"`
-	Email              string         `json:"email" gorm:"index:email_index,unique"`
-	Password           string         `json:"password" gorm:"type:CHAR(128)"`
-	Salt               []byte         `json:"salt"`
-	Role               constants.Role `json:"role" gorm:"type:VARCHAR(128)"`
-	Totp               *string
-	WebAuthnCredential []Credential
-	WebAuthnSession    []SessionData
+	ID       uint           `gorm:"primarykey"`
+	Email    string         `json:"email" gorm:"index:email_index,unique"`
+	Password string         `json:"password" gorm:"type:CHAR(128)"`
+	Salt     []byte         `json:"salt"`
+	Role     constants.Role `json:"role" gorm:"type:VARCHAR(128)"`
+	Totp     *string
+	// WebAuthnCredential []Credential
+	// WebAuthnSession    []SessionData
 }
 
 func (a Account) WebAuthnID() []byte {
