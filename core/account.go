@@ -46,14 +46,14 @@ func (a Account) WebAuthnCredentials() []webauthn.Credential {
 
 type SessionData struct {
 	gorm.Model
-	AccountId uint
-	webauthn.SessionData
+	AccountId            uint
+	webauthn.SessionData `gorm:"type:JSON"`
 }
 
 type Credential struct {
 	gorm.Model
-	webauthn.Credential
-	AccountId uint
+	webauthn.Credential `gorm:"type:JSON"`
+	AccountId           uint
 }
 
 func (a *Account) BeforeCreate(tx *gorm.DB) (err error) {
