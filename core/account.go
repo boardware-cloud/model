@@ -65,7 +65,7 @@ func (WebAuthnSessionData) GormDataType() string {
 type SessionData struct {
 	gorm.Model
 	AccountId uint
-	WebAuthnSessionData
+	Data      WebAuthnSessionData
 }
 
 func (s *SessionData) BeforeCreate(tx *gorm.DB) (err error) {
@@ -90,8 +90,8 @@ func (WebAuthnCredential) GormDataType() string {
 
 type Credential struct {
 	gorm.Model
-	webauthn.Credential
-	AccountId uint
+	Credential webauthn.Credential
+	AccountId  uint
 }
 
 func (a *Account) BeforeCreate(tx *gorm.DB) (err error) {
