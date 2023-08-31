@@ -20,7 +20,7 @@ type Account struct {
 	Role     constants.Role `json:"role" gorm:"type:VARCHAR(128)"`
 	Totp     *string
 	// WebAuthnCredential []Credential
-	// WebAuthnSession    []SessionData
+	WebAuthnSession []SessionData
 }
 
 func (a Account) WebAuthnID() []byte {
