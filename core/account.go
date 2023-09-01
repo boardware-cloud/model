@@ -108,6 +108,7 @@ func (WebAuthnCredential) GormDataType() string {
 type Credential struct {
 	gorm.Model
 	Name       string
+	Os         string
 	Credential WebAuthnCredential
 	AccountId  uint
 }
