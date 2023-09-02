@@ -113,6 +113,11 @@ type Credential struct {
 	AccountId  uint
 }
 
+func (a *Credential) BeforeCreate(tx *gorm.DB) (err error) {
+	a.ID = utils.GenerteId()
+	return
+}
+
 func (a *Account) BeforeCreate(tx *gorm.DB) (err error) {
 	a.ID = utils.GenerteId()
 	return
