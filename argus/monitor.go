@@ -19,6 +19,7 @@ func Init(injectDB *gorm.DB) {
 	db.AutoMigrate(&UptimeNode{})
 	db.AutoMigrate(&MonitoringRecord{})
 	db.AutoMigrate(&UptimeMonitorAlert{})
+	common.Init(injectDB)
 }
 
 type UptimeNode struct {

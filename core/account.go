@@ -7,6 +7,7 @@ import (
 	"github.com/boardware-cloud/common/constants"
 	"github.com/boardware-cloud/common/errors"
 	"github.com/boardware-cloud/common/utils"
+	"github.com/boardware-cloud/model/common"
 	"github.com/chenyunda218/golambda"
 	"github.com/go-webauthn/webauthn/webauthn"
 	"gorm.io/gorm"
@@ -121,4 +122,8 @@ func (a *Credential) BeforeCreate(tx *gorm.DB) (err error) {
 func (a *Account) BeforeCreate(tx *gorm.DB) (err error) {
 	a.ID = utils.GenerteId()
 	return
+}
+
+func ListAccount(index, limit int64) common.List[Account] {
+	return common.ListModel(golambda.Reference([]Account{}), index, limit)
 }
