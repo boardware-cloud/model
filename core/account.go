@@ -3,7 +3,6 @@ package core
 import (
 	"database/sql/driver"
 	"encoding/json"
-	"fmt"
 
 	"github.com/boardware-cloud/common/constants"
 	"github.com/boardware-cloud/common/errors"
@@ -125,9 +124,7 @@ func (a *Account) BeforeCreate(tx *gorm.DB) (err error) {
 	return err
 }
 
-func ListAccount(index, limit int64) {
+func ListAccount(index, limit int64) common.List[Account] {
 	var accounts []Account
-	fmt.Println(accounts)
-	list := common.ListModel(&accounts, index, limit)
-	fmt.Println(list)
+	return common.ListModel(&accounts, index, limit)
 }
