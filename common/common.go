@@ -91,7 +91,20 @@ func ListModel[M any](model *[]M,
 	} else {
 		db.Model(model).Count(&total)
 	}
-	ctx.Find(model)
+	if total == 0 {
+		return List[M]{
+			Data: []M{},
+			Pagination: Pagination{
+				Limit: limit,
+				Index: 0,
+				Total: 0,
+			},
+		}
+	}
+	if total <= index*limit {
+		index = total/limit - 1
+	}
+	ctx.Limit(int(limit)).Offset(int(index * limit)).Find(model)
 	return List[M]{
 		Data: *model,
 		Pagination: Pagination{
