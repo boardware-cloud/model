@@ -3,7 +3,13 @@ package common
 import (
 	"database/sql/driver"
 	"encoding/json"
+
+	"gorm.io/gorm"
 )
+
+type CurrentLimiting struct {
+	gorm.Model
+}
 
 type PairList []Pair
 
