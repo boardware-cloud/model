@@ -80,12 +80,24 @@ func ListModel[M any](model *[]M,
 	index, limit int64,
 	args ...any,
 ) List[M] {
-	db.Find(model)
+	var total int64
+	ctx := db.Model(model)
+	if len(args) != 0 {
+		if len(args) == 1 {
+			ctx.Where(args[0]).Count(&total)
+		} else {
+			ctx.Where(args[0], args[1:]).Count(&total)
+		}
+	} else {
+		db.Model(model).Count(&total)
+	}
+	ctx.Find(model)
 	return List[M]{
 		Data: *model,
 		Pagination: Pagination{
 			Limit: limit,
 			Index: index,
+			Total: total,
 		},
 	}
 }
