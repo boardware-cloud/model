@@ -78,32 +78,14 @@ type Pagination struct {
 
 func ListModel[M any](model *[]M,
 	index, limit int64,
-	args ...any) List[M] {
-	var total int64
-	ctx := db.Model(model)
-	if len(args) != 0 {
-		ctx = ctx.Where(args[0], args[1:])
-	}
-	if total == 0 {
-		return List[M]{
-			Data: []M{},
-			Pagination: Pagination{
-				Limit: limit,
-				Index: 0,
-				Total: 0,
-			},
-		}
-	}
-	if total <= index*limit {
-		index = total/limit - 1
-	}
-	ctx.Limit(int(limit)).Offset(int(index * limit)).Find(&model)
+	args ...any,
+) List[M] {
+	db.Find(model)
 	return List[M]{
 		Data: *model,
 		Pagination: Pagination{
 			Limit: limit,
 			Index: index,
-			Total: total,
 		},
 	}
 }

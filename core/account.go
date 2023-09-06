@@ -3,6 +3,7 @@ package core
 import (
 	"database/sql/driver"
 	"encoding/json"
+	"fmt"
 
 	"github.com/boardware-cloud/common/constants"
 	"github.com/boardware-cloud/common/errors"
@@ -116,14 +117,17 @@ type Credential struct {
 
 func (a *Credential) BeforeCreate(tx *gorm.DB) (err error) {
 	a.ID = utils.GenerteId()
-	return
+	return err
 }
 
 func (a *Account) BeforeCreate(tx *gorm.DB) (err error) {
 	a.ID = utils.GenerteId()
-	return
+	return err
 }
 
-func ListAccount(index, limit int64) common.List[Account] {
-	return common.ListModel(golambda.Reference([]Account{}), index, limit)
+func ListAccount(index, limit int64) {
+	var accounts []Account
+	fmt.Println(accounts)
+	list := common.ListModel(&accounts, index, limit)
+	fmt.Println(list)
 }
