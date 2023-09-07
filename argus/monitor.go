@@ -1,4 +1,4 @@
-package uptime
+package argus
 
 import (
 	"database/sql/driver"
@@ -8,6 +8,7 @@ import (
 	"github.com/boardware-cloud/common/constants"
 	"github.com/boardware-cloud/common/utils"
 	"github.com/boardware-cloud/model/common"
+	"github.com/boardware-cloud/model/core"
 	"gorm.io/gorm"
 )
 
@@ -58,6 +59,16 @@ type Monitor struct {
 	ContentType          *constants.ContentType  `json:"contentType"`
 	Headers              *common.PairList        `json:"headers"`
 	AcceptedStatusCodes  *common.StringList      `json:"acceptedStatusCodes"`
+}
+
+func Owner(m Monitor) core.Account {
+	owner, _ := core.GetAccount(m.AccountId)
+	return owner
+}
+
+func Off(m *Monitor) {
+	m.Status = constants.DISACTIVED
+	db.Save(m)
 }
 
 func (m *Monitor) BeforeCreate(tx *gorm.DB) (err error) {

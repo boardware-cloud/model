@@ -13,10 +13,6 @@ func Init(injectDB *gorm.DB) {
 	db = injectDB
 }
 
-type CurrentLimiting struct {
-	gorm.Model
-}
-
 type PairList []Pair
 
 func (PairList) GormDataType() string {

@@ -3,6 +3,7 @@ package billing
 import (
 	"github.com/boardware-cloud/common/constants"
 	"github.com/boardware-cloud/common/utils"
+	"github.com/boardware-cloud/model/common"
 	"gorm.io/gorm"
 )
 
@@ -38,14 +39,9 @@ func AutoMigrate(name constants.ServiceName, title, description, url string, ser
 	db.Save(&service)
 }
 
-// func NewService(name constants.ServiceName, title, description, url string, serviceType constants.ServiceType) Service {
-// 	service := Service{
-// 		Name:        name,
-// 		Title:       title,
-// 		Description: description,
-// 		Url:         url,
-// 		Type:        serviceType,
-// 	}
-// 	service.ID = utils.GenerteId()
-// 	return service
-// }
+type Reserved struct {
+	gorm.Model
+	AccountId      uint                  `gorm:"index:accountId_index"`
+	Name           constants.ServiceName `json:"name"`
+	Specifications common.PairList       `json:"specifications"`
+}
