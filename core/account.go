@@ -4,8 +4,8 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 
+	"github.com/boardware-cloud/common/code"
 	"github.com/boardware-cloud/common/constants"
-	"github.com/boardware-cloud/common/errors"
 	"github.com/boardware-cloud/common/utils"
 	"github.com/boardware-cloud/model/common"
 	"github.com/chenyunda218/golambda"
@@ -25,18 +25,18 @@ type Account struct {
 	WebAuthnSession    []SessionData
 }
 
-func GetAccount(id uint) (Account, *errors.Error) {
+func GetAccount(id uint) (Account, error) {
 	var account Account
 	if ctx := db.Find(&account, id); ctx.RowsAffected == 0 {
-		return account, errors.NotFoundError()
+		return account, code.ErrNotFound
 	}
 	return account, nil
 }
 
-func GetAccountByEmail(email string) (Account, *errors.Error) {
+func GetAccountByEmail(email string) (Account, error) {
 	var account Account
 	if ctx := db.Where("email = ?", email).Find(&account); ctx.RowsAffected == 0 {
-		return account, errors.NotFoundError()
+		return account, code.ErrNotFound
 	}
 	return account, nil
 }
