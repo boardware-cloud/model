@@ -30,6 +30,7 @@ func (a *Service) BeforeCreate(tx *gorm.DB) (err error) {
 func AutoMigrate(name constants.ServiceName, title, description, url string, serviceType constants.ServiceType) {
 	service := Service{}
 	db.Where("name = ?", name).Find(&service)
+	service.Name = name
 	service.Title = title
 	service.Description = description
 	service.Url = url
