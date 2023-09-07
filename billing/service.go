@@ -10,6 +10,7 @@ var db *gorm.DB
 
 func Init(injectDB *gorm.DB) {
 	db = injectDB
+	db.AutoMigrate(&Service{})
 }
 
 type Service struct {
