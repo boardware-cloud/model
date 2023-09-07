@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 
 	"github.com/boardware-cloud/common/code"
+	"github.com/boardware-cloud/common/constants"
 	"github.com/boardware-cloud/common/utils"
 	"github.com/boardware-cloud/model/common"
 	"github.com/chenyunda218/golambda"
@@ -14,11 +15,11 @@ import (
 
 type Account struct {
 	gorm.Model
-	ID                 uint   `gorm:"primarykey"`
-	Email              string `json:"email" gorm:"index:email_index,unique"`
-	Password           string `json:"password" gorm:"type:CHAR(128)"`
-	Salt               []byte `json:"salt"`
-	Role               string `json:"role"`
+	ID                 uint           `gorm:"primarykey"`
+	Email              string         `json:"email" gorm:"index:email_index,unique"`
+	Password           string         `json:"password" gorm:"type:CHAR(128)"`
+	Salt               []byte         `json:"salt"`
+	Role               constants.Role `json:"role"`
 	Totp               *string
 	WebAuthnCredential []Credential
 	WebAuthnSession    []SessionData
