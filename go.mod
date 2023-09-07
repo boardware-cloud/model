@@ -3,7 +3,7 @@ module github.com/boardware-cloud/model
 go 1.18
 
 require (
-	github.com/boardware-cloud/common v0.0.0-20230907040411-be90c7751859
+	github.com/boardware-cloud/common v0.0.0-20230907040711-094233c12ba2
 	gorm.io/driver/mysql v1.5.1
 	gorm.io/gorm v1.25.2
 )
