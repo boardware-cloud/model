@@ -86,6 +86,8 @@ github.com/boardware-cloud/common v0.0.0-20230907055306-a9815356deaa h1:1bxMNG4D
 github.com/boardware-cloud/common v0.0.0-20230907055306-a9815356deaa/go.mod h1:Ztn+PIPt9IhKncTFySl6LOyMhCV+AseebVcV5dDE18Y=
 github.com/boardware-cloud/common v0.0.0-20230907061502-31b7a049a686 h1:k9/kgXFYMhcEWPXYk9TYkn8Jw0SpI00DDWE2ri01buA=
 github.com/boardware-cloud/common v0.0.0-20230907061502-31b7a049a686/go.mod h1:Ztn+PIPt9IhKncTFySl6LOyMhCV+AseebVcV5dDE18Y=
+github.com/boardware-cloud/common v0.0.0-20230907061948-0d78104aae7b h1:PEeZNUuRmVIMcQ2uTgQ6sbe4HSXryMu5ZRc/OHLlAAY=
+github.com/boardware-cloud/common v0.0.0-20230907061948-0d78104aae7b/go.mod h1:Ztn+PIPt9IhKncTFySl6LOyMhCV+AseebVcV5dDE18Y=
 github.com/bwmarrin/snowflake v0.3.0 h1:xm67bEhkKh6ij1790JB83OujPR5CzNe8QuQqAgISZN0=
 github.com/bwmarrin/snowflake v0.3.0/go.mod h1:NdZxfVWX+oR6y2K0o6qAYv6gIOP9rjG0/E9WsDpxqwE=
 github.com/bytedance/sonic v1.5.0/go.mod h1:ED5hyg4y6t3/9Ku1R6dU/4KyJ48DZ4jPhfY1O2AihPM=
