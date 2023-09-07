@@ -20,6 +20,7 @@ func Init(injectDB *gorm.DB) {
 	db.AutoMigrate(&UptimeNode{})
 	db.AutoMigrate(&MonitoringRecord{})
 	db.AutoMigrate(&UptimeMonitorAlert{})
+	db.AutoMigrate(&ReservedMonitor{})
 	common.Init(injectDB)
 }
 
@@ -32,6 +33,13 @@ type UptimeNode struct {
 func (m *UptimeNode) BeforeCreate(tx *gorm.DB) (err error) {
 	m.ID = utils.GenerteId()
 	return
+}
+
+type ReservedMonitor struct {
+	gorm.Model
+	AccountId uint `gorm:"index:accountId_index"`
+	StartAt   time.Time
+	ExpiredAt time.Time
 }
 
 type Monitor struct {
