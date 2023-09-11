@@ -16,5 +16,6 @@ func Init(injectDB *gorm.DB) {
 	db.AutoMigrate(Session{})
 	db.AutoMigrate(&Ticket{})
 	db.AutoMigrate(&VerificationCode{})
+	db.AutoMigrate(&ColdDown{})
 	common.Init(injectDB)
 }
