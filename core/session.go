@@ -22,13 +22,3 @@ func (a *Session) BeforeCreate(tx *gorm.DB) (err error) {
 	a.ID = utils.GenerteId()
 	return
 }
-
-type LoginRecord struct {
-	gorm.Model
-	AccountId uint `json:"accountId" gorm:"index:accountId_index"`
-}
-
-func (a *LoginRecord) BeforeCreate(tx *gorm.DB) (err error) {
-	a.ID = utils.GenerteId()
-	return
-}
