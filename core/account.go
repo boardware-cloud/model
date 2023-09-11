@@ -3,6 +3,7 @@ package core
 import (
 	"database/sql/driver"
 	"encoding/json"
+	"time"
 
 	"github.com/boardware-cloud/common/code"
 	"github.com/boardware-cloud/common/constants"
@@ -23,6 +24,16 @@ type Account struct {
 	Totp               *string
 	WebAuthnCredential []Credential
 	WebAuthnSession    []SessionData
+}
+
+func (a Account) CreateColdDown() {
+	CreateColdDown(a.ID)
+}
+
+func (a Account) ColdDown(coldDownTime int64) bool {
+	var coldDown ColdDown
+	db.Where("account_id = ?", a.ID).Order("created_at DESC").Limit(1).Find(&coldDown)
+	return time.Now().UnixMilli()-coldDown.CreatedAt.UnixMilli() > coldDownTime
 }
 
 func GetAccount(id uint) (Account, error) {
@@ -127,4 +138,18 @@ func (a *Account) BeforeCreate(tx *gorm.DB) (err error) {
 func ListAccount(index, limit int64) common.List[Account] {
 	var accounts []Account
 	return common.ListModel(&accounts, index, limit)
+}
+
+type ColdDown struct {
+	gorm.Model
+	AccountId uint `json:"email" gorm:"index:account_id_index"`
+}
+
+func (a *ColdDown) BeforeCreate(tx *gorm.DB) (err error) {
+	a.ID = utils.GenerteId()
+	return err
+}
+
+func CreateColdDown(accountId uint) {
+	db.Save(&ColdDown{AccountId: accountId})
 }
