@@ -1,7 +1,7 @@
 package billing
 
 import (
-	"github.com/boardware-cloud/common/constants"
+	constants "github.com/boardware-cloud/common/constants/service"
 	"github.com/boardware-cloud/common/utils"
 	"github.com/boardware-cloud/model/common"
 	"gorm.io/gorm"

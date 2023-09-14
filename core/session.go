@@ -3,7 +3,7 @@ package core
 import (
 	"time"
 
-	"github.com/boardware-cloud/common/constants"
+	constants "github.com/boardware-cloud/common/constants/account"
 	"github.com/boardware-cloud/common/utils"
 
 	"gorm.io/gorm"
