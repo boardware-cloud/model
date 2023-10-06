@@ -26,6 +26,27 @@ type Account struct {
 	WebAuthnSession    []SessionData
 }
 
+func FindAccount(conds ...interface{}) (Account, error) {
+	var account Account
+	if ctx := db.Find(&account, conds); ctx.RowsAffected == 0 {
+		return account, code.ErrNotFound
+	}
+	return account, nil
+}
+
+func FindAccountById(id uint) (Account, error) {
+	return FindAccount(id)
+}
+
+func FindAccountByEmail(email string) (Account, error) {
+	return FindAccount("email = ?", email)
+}
+
+func ListAccount(index, limit int64) common.List[Account] {
+	var accounts []Account
+	return common.ListModel(&accounts, index, limit)
+}
+
 func (a Account) CreateColdDown() {
 	CreateColdDown(a.ID)
 }
@@ -34,22 +55,6 @@ func (a Account) ColdDown(coldDownTime int64) bool {
 	var coldDown ColdDown
 	db.Where("account_id = ?", a.ID).Order("created_at DESC").Limit(1).Find(&coldDown)
 	return time.Now().UnixMilli()-coldDown.CreatedAt.UnixMilli() > coldDownTime
-}
-
-func GetAccount(id uint) (Account, error) {
-	var account Account
-	if ctx := db.Find(&account, id); ctx.RowsAffected == 0 {
-		return account, code.ErrNotFound
-	}
-	return account, nil
-}
-
-func GetAccountByEmail(email string) (Account, error) {
-	var account Account
-	if ctx := db.Where("email = ?", email).Find(&account); ctx.RowsAffected == 0 {
-		return account, code.ErrNotFound
-	}
-	return account, nil
 }
 
 func (a Account) WebAuthnID() []byte {
@@ -133,11 +138,6 @@ func (a *Credential) BeforeCreate(tx *gorm.DB) (err error) {
 func (a *Account) BeforeCreate(tx *gorm.DB) (err error) {
 	a.ID = utils.GenerteId()
 	return err
-}
-
-func ListAccount(index, limit int64) common.List[Account] {
-	var accounts []Account
-	return common.ListModel(&accounts, index, limit)
 }
 
 type ColdDown struct {

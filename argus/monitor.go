@@ -69,8 +69,16 @@ type Monitor struct {
 	AcceptedStatusCodes  *common.StringList      `json:"acceptedStatusCodes"`
 }
 
+func (m Monitor) Owner() core.Account {
+	return Owner(m)
+}
+
+func (m *Monitor) Off() {
+	Off(m)
+}
+
 func Owner(m Monitor) core.Account {
-	owner, _ := core.GetAccount(m.AccountId)
+	owner, _ := core.FindAccountById(m.AccountId)
 	return owner
 }
 
