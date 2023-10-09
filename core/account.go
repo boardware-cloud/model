@@ -26,9 +26,9 @@ type Account struct {
 	WebAuthnSession    []SessionData
 }
 
-func FindAccount(conds ...interface{}) (Account, error) {
+func FindAccount(conds ...any) (Account, error) {
 	var account Account
-	if ctx := db.Find(&account, conds); ctx.RowsAffected == 0 {
+	if ctx := db.Find(&account, conds...); ctx.RowsAffected == 0 {
 		return account, code.ErrNotFound
 	}
 	return account, nil
