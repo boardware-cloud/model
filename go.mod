@@ -9,6 +9,7 @@ require (
 )
 
 require (
+	github.com/Dparty/common v0.0.0-20230929033726-ff769bca8c94 // indirect
 	github.com/bwmarrin/snowflake v0.3.0 // indirect
 	github.com/bytedance/sonic v1.10.0-rc2 // indirect
 	github.com/chenyunda218/golambda v0.0.0-20230809035428-25245dc9a8bd // indirect

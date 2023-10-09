@@ -78,7 +78,7 @@ func (m *Monitor) Off() {
 }
 
 func Owner(m Monitor) core.Account {
-	owner, _ := core.FindAccountById(m.AccountId)
+	owner, _ := core.FindAccount(m.AccountId)
 	return owner
 }
 

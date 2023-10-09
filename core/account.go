@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/boardware-cloud/common/code"
 	constants "github.com/boardware-cloud/common/constants/account"
 	"github.com/boardware-cloud/common/utils"
 	"github.com/boardware-cloud/model/common"
@@ -27,15 +26,7 @@ type Account struct {
 }
 
 func FindAccount(conds ...any) (Account, error) {
-	var account Account
-	if ctx := db.Find(&account, conds...); ctx.RowsAffected == 0 {
-		return account, code.ErrNotFound
-	}
-	return account, nil
-}
-
-func FindAccountById(id uint) (Account, error) {
-	return FindAccount(id)
+	return common.Find(Account{}, conds...)
 }
 
 func FindAccountByEmail(email string) (Account, error) {
@@ -43,8 +34,7 @@ func FindAccountByEmail(email string) (Account, error) {
 }
 
 func ListAccount(index, limit int64) common.List[Account] {
-	var accounts []Account
-	return common.ListModel(&accounts, index, limit)
+	return common.ListModel(&[]Account{}, index, limit)
 }
 
 func (a Account) CreateColdDown() {

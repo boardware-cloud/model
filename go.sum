@@ -38,6 +38,8 @@ cloud.google.com/go/storage v1.14.0/go.mod h1:GrKmX003DSIwi9o29oFT7YDnHYwZoctc3f
 dmitri.shuralyov.com/gpu/mtl v0.0.0-20190408044501-666a987793e9/go.mod h1:H6x//7gZCb22OMCxBHrMx7a5I7Hp++hsVxbQ4BYO7hU=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
+github.com/Dparty/common v0.0.0-20230929033726-ff769bca8c94 h1:YYt8QQbi9RQB+0GDuL7DzFiOp/3W7mxq63Jvtq6LP5M=
+github.com/Dparty/common v0.0.0-20230929033726-ff769bca8c94/go.mod h1:sY807DCbNdj2+kTNspZcO7/X1zJBmTmxy5TSQA7+lL8=
 github.com/boardware-cloud/common v0.0.0-20230817020532-8864de6ed385 h1:5uy7ti4zuVal+ZD0PI94sZ+LQgL96TW7W+KwnSne5Os=
 github.com/boardware-cloud/common v0.0.0-20230817020532-8864de6ed385/go.mod h1:Ztn+PIPt9IhKncTFySl6LOyMhCV+AseebVcV5dDE18Y=
 github.com/boardware-cloud/common v0.0.0-20230823060450-b9e5e290e867 h1:Hi+8hcO5SuDeKJszaxxqrDpGwPBXU6KR0Mm+WmpgfjM=
