@@ -40,6 +40,10 @@ github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/boardware-cloud/common v0.0.0-20230914072942-652098073466 h1:dsPj0ftK+el63JXvnZsPqWqpBHziDoXTpZj1NcSYdBk=
 github.com/boardware-cloud/common v0.0.0-20230914072942-652098073466/go.mod h1:Ztn+PIPt9IhKncTFySl6LOyMhCV+AseebVcV5dDE18Y=
+github.com/boardware-cloud/common v0.0.0-20231010062950-f6755b637db9 h1:crkHmla8ZgRtlGWywGvdYCfmFYMloV8GDHjmMiW54G0=
+github.com/boardware-cloud/common v0.0.0-20231010062950-f6755b637db9/go.mod h1:Ztn+PIPt9IhKncTFySl6LOyMhCV+AseebVcV5dDE18Y=
+github.com/boardware-cloud/common v0.0.0-20231010063056-1d15df636aa2 h1:acfqkv20XGh6/vaJ6uywzTXnEJMNHRxou9nPXZEXcxg=
+github.com/boardware-cloud/common v0.0.0-20231010063056-1d15df636aa2/go.mod h1:Ztn+PIPt9IhKncTFySl6LOyMhCV+AseebVcV5dDE18Y=
 github.com/bwmarrin/snowflake v0.3.0 h1:xm67bEhkKh6ij1790JB83OujPR5CzNe8QuQqAgISZN0=
 github.com/bwmarrin/snowflake v0.3.0/go.mod h1:NdZxfVWX+oR6y2K0o6qAYv6gIOP9rjG0/E9WsDpxqwE=
 github.com/bytedance/sonic v1.5.0/go.mod h1:ED5hyg4y6t3/9Ku1R6dU/4KyJ48DZ4jPhfY1O2AihPM=

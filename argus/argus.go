@@ -24,6 +24,16 @@ func (a *Argus) BeforeCreate(tx *gorm.DB) (err error) {
 	return
 }
 
+func (a *Argus) Scan(value any) error {
+	switch a.Type {
+	case constants.HTTP:
+		a.Monitor = a.Monitor.(*HttpMonitor)
+	case constants.PING:
+		a.Monitor = a.Monitor.(*PingMonitor)
+	}
+	return nil
+}
+
 type Monitor interface {
 	Scan(value any) error
 	Value() (driver.Value, error)
