@@ -59,7 +59,6 @@ func (j MonitorJSON) Value() (driver.Value, error) {
 func (m MonitorJSON) Monitor() Monitor {
 	ma := make(map[string]interface{})
 	json.Unmarshal(m, &ma)
-	fmt.Println(ma["type"])
 	t := ma["type"]
 	switch t {
 	case "HTTP":
