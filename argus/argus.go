@@ -3,8 +3,8 @@ package argus
 import (
 	"database/sql/driver"
 
-	"github.com/Dparty/common/utils"
 	"github.com/boardware-cloud/common/constants"
+	"github.com/boardware-cloud/common/utils"
 	"gorm.io/gorm"
 )
 

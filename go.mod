@@ -4,15 +4,15 @@ go 1.18
 
 require (
 	github.com/boardware-cloud/common v0.0.0-20230914072942-652098073466
+	github.com/chenyunda218/golambda v0.0.0-20230809035428-25245dc9a8bd
+	github.com/go-webauthn/webauthn v0.8.6
 	gorm.io/driver/mysql v1.5.1
 	gorm.io/gorm v1.25.2
 )
 
 require (
-	github.com/Dparty/common v0.0.0-20230929033726-ff769bca8c94 // indirect
 	github.com/bwmarrin/snowflake v0.3.0 // indirect
 	github.com/bytedance/sonic v1.10.0-rc2 // indirect
-	github.com/chenyunda218/golambda v0.0.0-20230809035428-25245dc9a8bd // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20230717121745-296ad89f973d // indirect
 	github.com/chenzhuoyu/iasm v0.9.0 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
@@ -24,7 +24,6 @@ require (
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.14.1 // indirect
 	github.com/go-sql-driver/mysql v1.7.1 // indirect
-	github.com/go-webauthn/webauthn v0.8.6 // indirect
 	github.com/go-webauthn/x v0.1.4 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect

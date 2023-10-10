@@ -4,7 +4,7 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 
-	"github.com/Dparty/common/fault"
+	"github.com/boardware-cloud/common/code"
 	"gorm.io/gorm"
 )
 
@@ -75,7 +75,7 @@ type Pagination struct {
 
 func Find[T any](model T, conds ...any) (T, error) {
 	if ctx := db.Find(&model, conds...); ctx.RowsAffected == 0 {
-		return model, fault.ErrNotFound
+		return model, code.ErrNotFound
 	}
 	return model, nil
 }
