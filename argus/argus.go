@@ -26,8 +26,9 @@ func (a Argus) Monitor() Monitor {
 	return a.MonitorJSON.Monitor()
 }
 
-func (a *Argus) SetMonitor(monitor Monitor) {
+func (a *Argus) SetMonitor(monitor Monitor) Argus {
 	a.MonitorJSON = monitor.ToJSON()
+	return *a
 }
 
 func (a *Argus) BeforeCreate(tx *gorm.DB) (err error) {
