@@ -3,7 +3,6 @@ package argus
 import (
 	"database/sql/driver"
 	"encoding/json"
-	"fmt"
 
 	"github.com/boardware-cloud/common/constants"
 	"github.com/boardware-cloud/common/utils"
@@ -18,7 +17,7 @@ type Argus struct {
 	Status      constants.MonitorStatus
 	Type        constants.MonitorType `gorm:"type:VARCHAR(128)"`
 	ArgusNodeId *uint                 `gorm:"index:uptime_id_name"`
-	Monitor     Monitor               `gorm:"type:JSON"`
+	Monitor     MonitorEnitiy         `gorm:"type:JSON"`
 }
 
 func (a *Argus) BeforeCreate(tx *gorm.DB) (err error) {
@@ -26,18 +25,31 @@ func (a *Argus) BeforeCreate(tx *gorm.DB) (err error) {
 	return
 }
 
-func (a *Argus) Scan(value any) error {
-	fmt.Println("Scan")
-	switch a.Type {
+type MonitorEnitiy struct {
+	Type    constants.MonitorType `json:"type"`
+	Monitor Monitor               `json:"monitor"`
+}
+
+func (MonitorEnitiy) GormDataType() string {
+	return "JSON"
+}
+
+func (w *MonitorEnitiy) Scan(value any) error {
+	m := make(map[string]any)
+	json.Unmarshal(value.([]byte), &m)
+	w.Type = m["type"].(constants.MonitorType)
+	switch w.Type {
 	case constants.HTTP:
-		a.Monitor = a.Monitor.(*HttpMonitor)
+		monitor := m["monitor"].(HttpMonitor)
+		w.Monitor = &monitor
 	case constants.PING:
-		a.Monitor = a.Monitor.(*PingMonitor)
+		monitor := m["monitor"].(PingMonitor)
+		w.Monitor = &monitor
 	}
 	return nil
 }
 
-func (w Argus) Value() (driver.Value, error) {
+func (w MonitorEnitiy) Value() (driver.Value, error) {
 	b, err := json.Marshal(w)
 	return b, err
 }
