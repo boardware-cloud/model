@@ -2,6 +2,7 @@ package argus
 
 import (
 	"database/sql/driver"
+	"encoding/json"
 	"fmt"
 
 	"github.com/boardware-cloud/common/constants"
@@ -34,6 +35,11 @@ func (a *Argus) Scan(value any) error {
 		a.Monitor = a.Monitor.(*PingMonitor)
 	}
 	return nil
+}
+
+func (w Argus) Value() (driver.Value, error) {
+	b, err := json.Marshal(w)
+	return b, err
 }
 
 type Monitor interface {
