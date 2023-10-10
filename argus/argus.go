@@ -2,6 +2,7 @@ package argus
 
 import (
 	"database/sql/driver"
+	"fmt"
 
 	"github.com/boardware-cloud/common/constants"
 	"github.com/boardware-cloud/common/utils"
@@ -25,6 +26,7 @@ func (a *Argus) BeforeCreate(tx *gorm.DB) (err error) {
 }
 
 func (a *Argus) Scan(value any) error {
+	fmt.Println("Scan")
 	switch a.Type {
 	case constants.HTTP:
 		a.Monitor = a.Monitor.(*HttpMonitor)
