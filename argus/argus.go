@@ -22,3 +22,7 @@ type Monitor interface {
 	Scan(value any) error
 	Value() (driver.Value, error)
 }
+
+func Create(argus *Argus) {
+	db.Save(argus)
+}
