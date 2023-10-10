@@ -8,6 +8,7 @@ import (
 )
 
 type HttpMonitor struct {
+	Type       string               `json:"type"`
 	Interval   int64                `json:"interval"`
 	Timeout    int64                `json:"timeout"`
 	Url        string               `json:"url"`
@@ -15,11 +16,20 @@ type HttpMonitor struct {
 	HttpMethod constants.HttpMehotd `json:"method" gorm:"type:VARCHAR(128)"`
 }
 
-func (w *HttpMonitor) Scan(value any) error {
-	return json.Unmarshal(value.([]byte), w)
+func (h HttpMonitor) ToJSON() MonitorJSON {
+	b, _ := json.Marshal(h)
+	return b
 }
 
-func (w HttpMonitor) Value() (driver.Value, error) {
-	b, err := json.Marshal(w)
+func (h *HttpMonitor) Scan(value any) error {
+	return json.Unmarshal(value.([]byte), h)
+}
+
+func (h HttpMonitor) Value() (driver.Value, error) {
+	b, err := json.Marshal(h)
 	return b, err
+}
+
+func (h HttpMonitor) GetType() string {
+	return "HTTP"
 }
