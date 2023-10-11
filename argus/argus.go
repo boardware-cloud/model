@@ -8,8 +8,14 @@ import (
 
 	"github.com/boardware-cloud/common/constants"
 	"github.com/boardware-cloud/common/utils"
+	"github.com/boardware-cloud/model/common"
 	"gorm.io/gorm"
 )
+
+func FindArgus(conds ...any) (Argus, error) {
+	argus, err := common.Find(&Argus{}, conds...)
+	return *argus, err
+}
 
 type Argus struct {
 	gorm.Model

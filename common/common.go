@@ -74,7 +74,7 @@ type Pagination struct {
 }
 
 func Find[T any](model T, conds ...any) (T, error) {
-	if ctx := db.Find(&model, conds...); ctx.RowsAffected == 0 {
+	if ctx := db.Find(model, conds...); ctx.RowsAffected == 0 {
 		return model, code.ErrNotFound
 	}
 	return model, nil
