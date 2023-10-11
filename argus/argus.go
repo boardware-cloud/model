@@ -28,6 +28,12 @@ type Argus struct {
 	MonitorJSON MonitorJSON           `gorm:"type:JSON"`
 }
 
+func (a *Argus) Spawn(nodeId uint) bool {
+	a.ArgusNodeId = &nodeId
+	ctx := db.Save(a)
+	return ctx.RowsAffected != 0
+}
+
 func (a Argus) Record(result string) ArgusRecord {
 	record := ArgusRecord{Result: result, ArgusId: a.ID}
 	db.Save(&record)
