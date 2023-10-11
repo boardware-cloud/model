@@ -28,6 +28,20 @@ type Argus struct {
 	MonitorJSON MonitorJSON           `gorm:"type:JSON"`
 }
 
+func (a Argus) Record(result string) ArgusRecord {
+	record := ArgusRecord{Result: result, ArgusId: a.ID}
+	db.Save(&record)
+	return record
+}
+
+func (a Argus) LastRecord() *ArgusRecord {
+	record, err := common.Find(&ArgusRecord{}, "argus_id = ?", a.ID)
+	if err != nil {
+		return nil
+	}
+	return record
+}
+
 func (a Argus) Owner() uint {
 	return a.AccountId
 }

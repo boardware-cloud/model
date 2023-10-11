@@ -15,6 +15,7 @@ func Init(injectDB *gorm.DB) {
 	// db.AutoMigrate(&UptimeMonitorAlert{})
 	// db.AutoMigrate(&ReservedMonitor{})
 	db.AutoMigrate(&Argus{})
+	db.AutoMigrate(&ArgusRecord{})
 	db.AutoMigrate(&ArgusNode{})
 	common.Init(injectDB)
 }
