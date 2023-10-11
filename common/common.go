@@ -80,6 +80,25 @@ func Find[T any](model T, conds ...any) (T, error) {
 	return model, nil
 }
 
+func ListEntity(model any, index, limit int64, where ...*gorm.DB) Pagination {
+	ctx := db.Model(model)
+	for _, w := range where {
+		ctx = ctx.Where(w)
+	}
+	var total int64
+	if total <= index*limit {
+		index = total/limit - 1
+	}
+	ctx.Count(&total)
+	ctx.Limit(int(limit)).Offset(int(index * limit)).Find(model)
+
+	return Pagination{
+		Total: total,
+		Index: index,
+		Limit: limit,
+	}
+}
+
 func ListModel[M any](model *[]M,
 	index, limit int64,
 	args ...any,
