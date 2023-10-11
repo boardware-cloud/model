@@ -22,6 +22,10 @@ type Argus struct {
 	MonitorJSON MonitorJSON           `gorm:"type:JSON"`
 }
 
+func (a Argus) Owner() uint {
+	return a.AccountId
+}
+
 func (a Argus) Monitor() Monitor {
 	return a.MonitorJSON.Monitor()
 }

@@ -25,6 +25,14 @@ type Account struct {
 	WebAuthnSession    []SessionData
 }
 
+func (a Account) Own(asset Asset) bool {
+	return a.ID == asset.Owner()
+}
+
+type Asset interface {
+	Owner() uint
+}
+
 func FindAccount(conds ...any) (Account, error) {
 	return common.Find(Account{}, conds...)
 }

@@ -3,7 +3,7 @@ module github.com/boardware-cloud/model
 go 1.18
 
 require (
-	github.com/boardware-cloud/common v0.0.0-20231010063056-1d15df636aa2
+	github.com/boardware-cloud/common v0.0.0-20231010074109-e48c7fc51b44
 	github.com/chenyunda218/golambda v0.0.0-20230809035428-25245dc9a8bd
 	github.com/go-webauthn/webauthn v0.8.6
 	gorm.io/driver/mysql v1.5.1
