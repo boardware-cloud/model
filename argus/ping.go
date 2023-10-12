@@ -3,14 +3,15 @@ package argus
 import (
 	"database/sql/driver"
 	"encoding/json"
+	"time"
 )
 
 type PingMonitor struct {
-	Type     string `json:"type"`
-	Interval int64  `json:"interval"`
-	Timeout  int64  `json:"timeout"`
-	Url      string `json:"url"`
-	Retries  int64  `json:"retries"`
+	Type     string        `json:"type"`
+	Interval time.Duration `json:"interval"`
+	Timeout  int64         `json:"timeout"`
+	Url      string        `json:"url"`
+	Retries  int64         `json:"retries"`
 }
 
 func (h PingMonitor) ToJSON() MonitorJSON {

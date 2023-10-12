@@ -3,13 +3,14 @@ package argus
 import (
 	"database/sql/driver"
 	"encoding/json"
+	"time"
 
 	"github.com/boardware-cloud/common/constants"
 )
 
 type HttpMonitor struct {
 	Type       string               `json:"type"`
-	Interval   int64                `json:"interval"`
+	Interval   time.Duration        `json:"interval"`
 	Timeout    int64                `json:"timeout"`
 	Url        string               `json:"url"`
 	Retries    int64                `json:"retries"`
