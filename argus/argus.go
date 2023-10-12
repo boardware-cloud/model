@@ -29,6 +29,15 @@ type Argus struct {
 	MonitorJSON MonitorJSON           `gorm:"type:JSON"`
 }
 
+func (a *Argus) Update(n Argus) {
+	a.UpdatedAt = time.Now()
+	a.Name = n.Name
+	a.Description = n.Description
+	a.Status = n.Status
+	a.Type = n.Type
+	a.MonitorJSON = n.MonitorJSON
+}
+
 func (a *Argus) Spawn(nodeId uint) bool {
 	a.ArgusNodeId = &nodeId
 	ctx := db.Save(a)
