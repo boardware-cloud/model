@@ -36,6 +36,7 @@ func (a *Argus) Update(n Argus) {
 	a.Status = n.Status
 	a.Type = n.Type
 	a.MonitorJSON = n.MonitorJSON
+	db.Save(a)
 }
 
 func (a *Argus) Spawn(nodeId uint) bool {
