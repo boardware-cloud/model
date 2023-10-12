@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"time"
 
 	"github.com/boardware-cloud/common/constants"
 	"github.com/boardware-cloud/common/utils"
@@ -34,8 +35,8 @@ func (a *Argus) Spawn(nodeId uint) bool {
 	return ctx.RowsAffected != 0
 }
 
-func (a Argus) Record(result string) ArgusRecord {
-	record := ArgusRecord{Result: result, ArgusId: a.ID}
+func (a Argus) Record(result string, responesTime time.Duration) ArgusRecord {
+	record := ArgusRecord{Result: result, ArgusId: a.ID, ResponesTime: int64(responesTime)}
 	db.Save(&record)
 	return record
 }
