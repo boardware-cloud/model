@@ -36,7 +36,7 @@ func (a *Argus) Spawn(nodeId uint) bool {
 }
 
 func (a Argus) Record(result string, responesTime time.Duration) ArgusRecord {
-	record := ArgusRecord{Result: result, ArgusId: a.ID, ResponesTime: int64(responesTime)}
+	record := ArgusRecord{Result: result, ArgusId: a.ID, ResponesTime: responesTime}
 	db.Save(&record)
 	return record
 }
@@ -90,8 +90,7 @@ func (j MonitorJSON) Value() (driver.Value, error) {
 func (m MonitorJSON) Monitor() Monitor {
 	ma := make(map[string]interface{})
 	json.Unmarshal(m, &ma)
-	t := ma["type"]
-	switch t {
+	switch ma["type"] {
 	case "HTTP":
 		var httpMonitor HttpMonitor
 		json.Unmarshal(m, &httpMonitor)
