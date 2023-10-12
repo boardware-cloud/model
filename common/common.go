@@ -80,13 +80,16 @@ func Find[T any](model T, conds ...any) (T, error) {
 	return model, nil
 }
 
-func ListEntity(model any, index, limit int64, where ...*gorm.DB) Pagination {
+func ListEntity(model any, index, limit int64, order string, where ...*gorm.DB) Pagination {
 	ctx := db.Model(model)
 	for _, w := range where {
 		ctx = ctx.Where(w)
 	}
 	var total int64
 	ctx.Count(&total)
+  if order != "" {
+    ctx = ctx.Order(order)
+  }
 	ctx.Limit(int(limit)).Offset(int(index * limit)).Find(model)
 	return Pagination{
 		Total: total,
