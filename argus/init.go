@@ -9,6 +9,6 @@ var db *gorm.DB
 
 func Init(injectDB *gorm.DB) {
 	db = injectDB
-	db.AutoMigrate(&Argus{}, &ArgusRecord{}, &ArgusNode{})
+	db.AutoMigrate(&Argus{}, &ArgusRecord{}, &ArgusNode{}, &NotificationRecord{})
 	common.Init(injectDB)
 }

@@ -31,6 +31,14 @@ type Argus struct {
 	NotificationGroup notification.NotificationGroup
 }
 
+func (a Argus) LastNotificationRecord() *NotificationRecord {
+	record, err := common.Find(&NotificationRecord{})
+	if err != nil {
+		return nil
+	}
+	return record
+}
+
 func (a *Argus) Update(n Argus) {
 	a.UpdatedAt = time.Now()
 	a.Name = n.Name
@@ -91,7 +99,7 @@ type MonitorJSON json.RawMessage
 func (j *MonitorJSON) Scan(value interface{}) error {
 	bytes, ok := value.([]byte)
 	if !ok {
-		return errors.New(fmt.Sprint("Failed to unmarshal JSONB value:", value))
+		return errors.New(fmt.Sprint("Failed to unmarshal JSON value:", value))
 	}
 	result := json.RawMessage{}
 	err := json.Unmarshal(bytes, &result)
