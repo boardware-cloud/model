@@ -9,13 +9,6 @@ var db *gorm.DB
 
 func Init(injectDB *gorm.DB) {
 	db = injectDB
-	// db.AutoMigrate(&Monitor{})
-	// db.AutoMigrate(&UptimeNode{})
-	// db.AutoMigrate(&MonitoringRecord{})
-	// db.AutoMigrate(&UptimeMonitorAlert{})
-	// db.AutoMigrate(&ReservedMonitor{})
-	db.AutoMigrate(&Argus{})
-	db.AutoMigrate(&ArgusRecord{})
-	db.AutoMigrate(&ArgusNode{})
+	db.AutoMigrate(&Argus{}, &ArgusRecord{}, &ArgusNode{})
 	common.Init(injectDB)
 }

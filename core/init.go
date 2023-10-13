@@ -9,12 +9,12 @@ var db *gorm.DB
 
 func Init(injectDB *gorm.DB) {
 	db = injectDB
-	db.AutoMigrate(&Account{})
-	db.AutoMigrate(&Credential{})
-	db.AutoMigrate(&SessionData{})
-	db.AutoMigrate(&Session{})
-	db.AutoMigrate(&Ticket{})
-	db.AutoMigrate(&VerificationCode{})
-	db.AutoMigrate(&ColdDown{})
+	db.AutoMigrate(&Account{},
+		&Credential{},
+		&SessionData{},
+		&Session{},
+		&Ticket{},
+		&VerificationCode{},
+		&ColdDown{})
 	common.Init(injectDB)
 }

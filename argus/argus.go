@@ -10,6 +10,7 @@ import (
 	"github.com/boardware-cloud/common/constants"
 	"github.com/boardware-cloud/common/utils"
 	"github.com/boardware-cloud/model/common"
+	"github.com/boardware-cloud/model/notification"
 	"gorm.io/gorm"
 )
 
@@ -20,13 +21,14 @@ func FindArgus(conds ...any) (Argus, error) {
 
 type Argus struct {
 	gorm.Model
-	AccountId   uint `gorm:"index:accountId_index"`
-	Name        string
-	Description string
-	Status      constants.MonitorStatus
-	Type        constants.MonitorType `gorm:"type:VARCHAR(128)"`
-	ArgusNodeId *uint                 `gorm:"index:uptime_id_name"`
-	MonitorJSON MonitorJSON           `gorm:"type:JSON"`
+	AccountId         uint `gorm:"index:accountId_index"`
+	Name              string
+	Description       string
+	Status            constants.MonitorStatus
+	Type              constants.MonitorType `gorm:"type:VARCHAR(128)"`
+	ArgusNodeId       *uint                 `gorm:"index:uptime_id_name"`
+	MonitorJSON       MonitorJSON           `gorm:"type:JSON"`
+	NotificationGroup notification.NotificationGroup
 }
 
 func (a *Argus) Update(n Argus) {
@@ -77,6 +79,13 @@ func (a *Argus) BeforeCreate(tx *gorm.DB) (err error) {
 	return
 }
 
+type Monitor interface {
+	GetType() string
+	ToJSON() MonitorJSON
+	Scan(value any) error
+	Value() (driver.Value, error)
+}
+
 type MonitorJSON json.RawMessage
 
 func (j *MonitorJSON) Scan(value interface{}) error {
@@ -110,12 +119,5 @@ func (m MonitorJSON) Monitor() Monitor {
 		json.Unmarshal(m, &pingMonitor)
 		return &pingMonitor
 	}
-	return &HttpMonitor{}
-}
-
-type Monitor interface {
-	GetType() string
-	ToJSON() MonitorJSON
-	Scan(value any) error
-	Value() (driver.Value, error)
+	return nil
 }
