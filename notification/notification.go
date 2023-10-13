@@ -74,11 +74,9 @@ type Entity interface {
 
 type Email struct {
 	gorm.Model
-	Sender  string   `json:"sender"`
-	To      []string `json:"to"`
-	Cc      []string `json:"cc"`
-	Bcc     []string `json:"bcc"`
-	Message string   `json:"message"`
+	To  []string `json:"to"`
+	Cc  []string `json:"cc"`
+	Bcc []string `json:"bcc"`
 }
 
 func (Email) Type() string {
