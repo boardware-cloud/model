@@ -77,5 +77,5 @@ type Email struct {
 }
 
 func (Email) Type() string {
-	return "Email"
+	return "EMAIL"
 }
