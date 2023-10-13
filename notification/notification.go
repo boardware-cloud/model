@@ -4,8 +4,6 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 	"time"
-
-	"gorm.io/gorm"
 )
 
 // var db *gorm.DB
@@ -73,7 +71,6 @@ type Entity interface {
 }
 
 type Email struct {
-	gorm.Model
 	To  []string `json:"to"`
 	Cc  []string `json:"cc"`
 	Bcc []string `json:"bcc"`
