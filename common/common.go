@@ -85,12 +85,12 @@ func ListEntity(model any, index, limit int64, order string, where ...*gorm.DB) 
 	for _, w := range where {
 		ctx = ctx.Where(w)
 	}
+	if order != "" {
+		ctx = ctx.Order(order)
+	}
+	ctx = ctx.Limit(int(limit)).Offset(int(index * limit)).Find(model)
 	var total int64
 	ctx.Count(&total)
-  if order != "" {
-    ctx = ctx.Order(order)
-  }
-	ctx.Limit(int(limit)).Offset(int(index * limit)).Find(model)
 	return Pagination{
 		Total: total,
 		Index: index,
