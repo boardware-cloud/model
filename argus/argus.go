@@ -141,3 +141,7 @@ func (a ArgusRepository) Find(conds ...any) *Argus {
 	}
 	return &argus
 }
+
+func (a ArgusRepository) GetById(id uint) *Argus {
+	return a.Find(id)
+}
