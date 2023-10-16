@@ -1,12 +1,11 @@
 package core
 
 import (
-	"database/sql/driver"
-	"encoding/json"
 	"time"
 
 	constants "github.com/boardware-cloud/common/constants/account"
 	"github.com/boardware-cloud/common/utils"
+	"github.com/boardware-cloud/model/abstract"
 	"github.com/boardware-cloud/model/common"
 	"github.com/chenyunda218/golambda"
 	"github.com/go-webauthn/webauthn/webauthn"
@@ -15,7 +14,6 @@ import (
 
 type Account struct {
 	gorm.Model
-	ID                 uint           `gorm:"primarykey"`
 	Email              string         `json:"email" gorm:"index:email_index,unique"`
 	Password           string         `json:"password" gorm:"type:CHAR(128)"`
 	Salt               []byte         `json:"salt"`
@@ -25,28 +23,28 @@ type Account struct {
 	WebAuthnSession    []SessionData
 }
 
-func (a Account) Own(asset Asset) bool {
-	return a.ID == asset.Owner()
+func (a Account) ID() uint {
+	return a.Model.ID
 }
 
-type Asset interface {
-	Owner() uint
+func (a Account) Own(asset abstract.Asset) bool {
+	return a.ID() == asset.Owner().ID()
 }
 
-func FindAccount(conds ...any) (Account, error) {
-	return common.Find(Account{}, conds...)
-}
+// func FindAccount(conds ...any) (Account, error) {
+// 	return common.Find(Account{}, conds...)
+// }
 
-func FindAccountByEmail(email string) (Account, error) {
-	return FindAccount("email = ?", email)
-}
+// func FindAccountByEmail(email string) (Account, error) {
+// 	return FindAccount("email = ?", email)
+// }
 
 func ListAccount(index, limit int64) common.List[Account] {
 	return common.ListModel(&[]Account{}, index, limit)
 }
 
 func (a Account) CreateColdDown() {
-	CreateColdDown(a.ID)
+	db.Save(&ColdDown{AccountId: a.ID()})
 }
 
 func (a Account) ColdDown(coldDownTime int64) bool {
@@ -56,7 +54,7 @@ func (a Account) ColdDown(coldDownTime int64) bool {
 }
 
 func (a Account) WebAuthnID() []byte {
-	return []byte(utils.UintToString(a.ID))
+	return []byte(utils.UintToString(a.ID()))
 }
 
 func (a Account) WebAuthnName() string {
@@ -79,62 +77,8 @@ func (a Account) WebAuthnCredentials() []webauthn.Credential {
 	})
 }
 
-type WebAuthnSessionData webauthn.SessionData
-
-func (w *WebAuthnSessionData) Scan(value any) error {
-	return json.Unmarshal(value.([]byte), w)
-}
-
-func (w WebAuthnSessionData) Value() (driver.Value, error) {
-	b, err := json.Marshal(w)
-	return b, err
-}
-
-func (WebAuthnSessionData) GormDataType() string {
-	return "JSON"
-}
-
-type SessionData struct {
-	gorm.Model
-	AccountId uint
-	Data      WebAuthnSessionData
-}
-
-func (s *SessionData) BeforeCreate(tx *gorm.DB) (err error) {
-	s.ID = utils.GenerteId()
-	return
-}
-
-type WebAuthnCredential webauthn.Credential
-
-func (w *WebAuthnCredential) Scan(value any) error {
-	return json.Unmarshal(value.([]byte), w)
-}
-
-func (w WebAuthnCredential) Value() (driver.Value, error) {
-	b, err := json.Marshal(w)
-	return b, err
-}
-
-func (WebAuthnCredential) GormDataType() string {
-	return "JSON"
-}
-
-type Credential struct {
-	gorm.Model
-	Name       string
-	Os         string
-	Credential WebAuthnCredential
-	AccountId  uint
-}
-
-func (a *Credential) BeforeCreate(tx *gorm.DB) (err error) {
-	a.ID = utils.GenerteId()
-	return err
-}
-
 func (a *Account) BeforeCreate(tx *gorm.DB) (err error) {
-	a.ID = utils.GenerteId()
+	a.Model.ID = utils.GenerteId()
 	return err
 }
 
@@ -148,6 +92,27 @@ func (a *ColdDown) BeforeCreate(tx *gorm.DB) (err error) {
 	return err
 }
 
-func CreateColdDown(accountId uint) {
-	db.Save(&ColdDown{AccountId: accountId})
+func NewAccountRepository(db *gorm.DB) AccountRepository {
+	return AccountRepository{db: db}
+}
+
+type AccountRepository struct {
+	db *gorm.DB
+}
+
+func (a AccountRepository) Find(conds ...any) *Account {
+	var account Account
+	ctx := a.db.Find(&account, conds...)
+	if ctx.RowsAffected == 0 {
+		return nil
+	}
+	return &account
+}
+
+func (a AccountRepository) GetById(id uint) *Account {
+	return a.Find(id)
+}
+
+func (a AccountRepository) GetByEmail(email string) *Account {
+	return a.Find("email = ?", email)
 }
