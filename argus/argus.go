@@ -36,6 +36,11 @@ func (a Argus) LastNotificationRecord() *NotificationRecord {
 	return record
 }
 
+func (a Argus) SaveNotificationRecord(record *NotificationRecord) *NotificationRecord {
+	db.Save(record)
+	return record
+}
+
 func (a *Argus) Update(n Argus) {
 	a.UpdatedAt = time.Now()
 	a.Name = n.Name
