@@ -6,13 +6,6 @@ import (
 	"time"
 )
 
-// var db *gorm.DB
-
-// func Init(injectDB *gorm.DB) {
-// 	db = injectDB
-// 	db.AutoMigrate()
-// }
-
 type NotificationGroup struct {
 	Interval          time.Duration   `json:"interval"`
 	NotificationsJSON json.RawMessage `json:"JSON"`

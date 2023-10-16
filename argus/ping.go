@@ -14,6 +14,10 @@ type PingMonitor struct {
 	Retries  int64         `json:"retries"`
 }
 
+func (p PingMonitor) Target() string {
+	return p.Url
+}
+
 func (h PingMonitor) ToJSON() MonitorJSON {
 	b, _ := json.Marshal(h)
 	return b

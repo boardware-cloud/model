@@ -91,6 +91,7 @@ type Monitor interface {
 	ToJSON() MonitorJSON
 	Scan(value any) error
 	Value() (driver.Value, error)
+	Target() string
 }
 
 type MonitorJSON json.RawMessage

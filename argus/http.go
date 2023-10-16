@@ -20,6 +20,10 @@ type HttpMonitor struct {
 	AcceptedStatusCodes common.StringList    `json:"acceptedStatusCodes"`
 }
 
+func (h HttpMonitor) Target() string {
+	return h.Url
+}
+
 func (h HttpMonitor) ToJSON() MonitorJSON {
 	b, _ := json.Marshal(h)
 	return b
