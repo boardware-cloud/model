@@ -45,7 +45,7 @@ func (g NotificationGroup) Notifications() []Notification {
 
 type Notification struct {
 	Interval   *time.Duration
-	Type       string
+	Type       string          `json:"type"`
 	EntityJSON json.RawMessage `json:"JSON"`
 }
 

@@ -149,3 +149,11 @@ func (a ArgusRepository) Find(conds ...any) *Argus {
 func (a ArgusRepository) GetById(id uint) *Argus {
 	return a.Find(id)
 }
+
+func (a ArgusRepository) List(index, limit int64, conds ...any) ([]Argus, int64) {
+	var argusList []Argus
+	var total int64
+	ctx := a.db.Limit(int(limit)).Offset(int(index*limit)).Find(&argusList, conds...)
+	ctx.Count(&total)
+	return argusList, total
+}
