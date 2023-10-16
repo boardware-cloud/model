@@ -13,7 +13,7 @@ type Asset interface {
 	SetOwner(owner Owner)
 }
 
-func Own(owner Owner, asset Owner) bool {
+func Own(owner Owner, asset Asset) bool {
 	if owner.TypeName() == asset.Owner().TypeName() && owner.ID() == asset.Owner().ID() {
 		return true
 	}

@@ -14,11 +14,6 @@ import (
 	"gorm.io/gorm"
 )
 
-func FindArgus(conds ...any) (Argus, error) {
-	argus, err := common.Find(&Argus{}, conds...)
-	return *argus, err
-}
-
 type Argus struct {
 	gorm.Model
 	AccountId         uint `gorm:"index:accountId_index"`
@@ -128,4 +123,21 @@ func (m MonitorJSON) Monitor() Monitor {
 		return &pingMonitor
 	}
 	return nil
+}
+
+func NewArgusRepository(db *gorm.DB) ArgusRepository {
+	return ArgusRepository{db}
+}
+
+type ArgusRepository struct {
+	db *gorm.DB
+}
+
+func (a ArgusRepository) Find(conds ...any) *Argus {
+	var argus Argus
+	ctx := a.db.Find(&argus, conds...)
+	if ctx.RowsAffected == 0 {
+		return nil
+	}
+	return &argus
 }

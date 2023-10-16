@@ -23,21 +23,21 @@ type Account struct {
 	WebAuthnSession    []SessionData
 }
 
+func (Account) Owner() abstract.Owner {
+	return nil
+}
+
 func (a Account) ID() uint {
 	return a.Model.ID
 }
 
-func (a Account) Own(asset abstract.Asset) bool {
-	return a.ID() == asset.Owner().ID()
+func (Account) TypeName() string {
+	return "account"
 }
 
-// func FindAccount(conds ...any) (Account, error) {
-// 	return common.Find(Account{}, conds...)
-// }
-
-// func FindAccountByEmail(email string) (Account, error) {
-// 	return FindAccount("email = ?", email)
-// }
+func (a Account) Own(asset abstract.Asset) bool {
+	return abstract.Own(a, asset)
+}
 
 func ListAccount(index, limit int64) common.List[Account] {
 	return common.ListModel(&[]Account{}, index, limit)
