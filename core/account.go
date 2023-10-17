@@ -82,6 +82,13 @@ func (a *Account) BeforeCreate(tx *gorm.DB) (err error) {
 	return err
 }
 
+func (a *Account) SetPassword(password string) *Account {
+	hashed, salt := utils.HashWithSalt(password)
+	a.Password = hashed
+	a.Salt = salt
+	return a
+}
+
 type ColdDown struct {
 	gorm.Model
 	AccountId uint `json:"email" gorm:"index:account_id_index"`

@@ -37,9 +37,7 @@ func (a AccountRepository) Create(email, password string, role constants.Role) (
 		return nil, code.ErrEmailExists
 	}
 	hashed, salt := utils.HashWithSalt(password)
-	account := Account{Email: email, Role: role}
-	account.Password = hashed
-	account.Salt = salt
+	account := Account{Email: email, Role: role, Password: hashed, Salt: salt}
 	switch role {
 	case constants.ROOT, constants.ADMIN, constants.USER:
 		account.Role = role
@@ -47,4 +45,8 @@ func (a AccountRepository) Create(email, password string, role constants.Role) (
 		account.Role = constants.USER
 	}
 	return &account, nil
+}
+
+func (a AccountRepository) Save(account *Account) {
+	a.db.Save(account)
 }
