@@ -9,13 +9,12 @@ import (
 type PingMonitor struct {
 	Type     string        `json:"type"`
 	Interval time.Duration `json:"interval"`
-	Timeout  int64         `json:"timeout"`
-	Url      string        `json:"url"`
+	Host     string        `json:"host"`
 	Retries  int64         `json:"retries"`
 }
 
 func (p PingMonitor) Target() string {
-	return p.Url
+	return p.Host
 }
 
 func (h PingMonitor) ToJSON() MonitorJSON {
