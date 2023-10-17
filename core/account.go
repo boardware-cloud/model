@@ -91,28 +91,3 @@ func (a *ColdDown) BeforeCreate(tx *gorm.DB) (err error) {
 	a.ID = utils.GenerteId()
 	return err
 }
-
-func NewAccountRepository(db *gorm.DB) AccountRepository {
-	return AccountRepository{db: db}
-}
-
-type AccountRepository struct {
-	db *gorm.DB
-}
-
-func (a AccountRepository) Find(conds ...any) *Account {
-	var account Account
-	ctx := a.db.Find(&account, conds...)
-	if ctx.RowsAffected == 0 {
-		return nil
-	}
-	return &account
-}
-
-func (a AccountRepository) GetById(id uint) *Account {
-	return a.Find(id)
-}
-
-func (a AccountRepository) GetByEmail(email string) *Account {
-	return a.Find("email = ?", email)
-}
