@@ -51,15 +51,15 @@ func (a AccountRepository) Save(account *Account) {
 	a.db.Save(account)
 }
 
-func NewVerificationRepository(db *gorm.DB) VerificationRepository {
-	return VerificationRepository{db}
+func NewVerificationCodeRepository(db *gorm.DB) VerificationCodeRepository {
+	return VerificationCodeRepository{db}
 }
 
-type VerificationRepository struct {
+type VerificationCodeRepository struct {
 	db *gorm.DB
 }
 
-func (v VerificationRepository) Find(conds ...any) *VerificationCode {
+func (v VerificationCodeRepository) Find(conds ...any) *VerificationCode {
 	var verificationCode VerificationCode
 	ctx := v.db.Find(&verificationCode, conds...)
 	if ctx.RowsAffected == 0 {
@@ -68,7 +68,7 @@ func (v VerificationRepository) Find(conds ...any) *VerificationCode {
 	return &verificationCode
 }
 
-func (v VerificationRepository) Get(email string, purpose constants.VerificationCodePurpose) *VerificationCode {
+func (v VerificationCodeRepository) Get(email string, purpose constants.VerificationCodePurpose) *VerificationCode {
 	var verificationCode VerificationCode
 	ctx := v.db.Where("identity = ?", email).Where("purpose = ?", purpose).Order("created_at DESC").Find(&verificationCode)
 	if ctx.RowsAffected == 0 {
