@@ -50,3 +50,29 @@ func (a AccountRepository) Create(email, password string, role constants.Role) (
 func (a AccountRepository) Save(account *Account) {
 	a.db.Save(account)
 }
+
+func NewVerificationRepository(db *gorm.DB) VerificationRepository {
+	return VerificationRepository{db}
+}
+
+type VerificationRepository struct {
+	db *gorm.DB
+}
+
+func (v VerificationRepository) Find(conds ...any) *VerificationCode {
+	var verificationCode VerificationCode
+	ctx := v.db.Find(&verificationCode, conds...)
+	if ctx.RowsAffected == 0 {
+		return nil
+	}
+	return &verificationCode
+}
+
+func (v VerificationRepository) Get(email string, purpose constants.VerificationCodePurpose) *VerificationCode {
+	var verificationCode VerificationCode
+	ctx := v.db.Where("identity = ?", email).Where("purpose = ?", purpose).Order("created_at DESC").Find(&verificationCode)
+	if ctx.RowsAffected == 0 {
+		return nil
+	}
+	return &verificationCode
+}
