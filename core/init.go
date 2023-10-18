@@ -7,6 +7,8 @@ import (
 
 var db *gorm.DB
 
+var accountRepository AccountRepository
+
 func Init(injectDB *gorm.DB) {
 	db = injectDB
 	db.AutoMigrate(&Account{},
@@ -16,5 +18,6 @@ func Init(injectDB *gorm.DB) {
 		&Ticket{},
 		&VerificationCode{},
 		&ColdDown{})
+	accountRepository = NewAccountRepository(db)
 	common.Init(injectDB)
 }

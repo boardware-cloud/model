@@ -76,3 +76,7 @@ func (v VerificationCodeRepository) Get(email string, purpose constants.Verifica
 	}
 	return &verificationCode
 }
+
+func (v VerificationCodeRepository) Delete(email string, purpose constants.VerificationCodePurpose) {
+	v.db.Where("identity = ?", email).Where("purpose = ?", purpose).Delete(&VerificationCode{})
+}
