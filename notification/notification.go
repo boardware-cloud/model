@@ -69,6 +69,10 @@ type Email struct {
 	Bcc []string `json:"bcc"`
 }
 
+type Webhook struct {
+	Url string `json:"url"`
+}
+
 func (Email) Type() string {
 	return "EMAIL"
 }

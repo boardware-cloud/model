@@ -15,7 +15,7 @@ import (
 type Account struct {
 	gorm.Model
 	Email              string         `json:"email" gorm:"index:email_index,unique"`
-	Password           string         `json:"password" gorm:"type:CHAR(128)"`
+	Password           string         `json:"-" gorm:"type:CHAR(128)"`
 	Salt               []byte         `json:"salt"`
 	Role               constants.Role `json:"role"`
 	Totp               *string

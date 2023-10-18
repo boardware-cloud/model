@@ -9,7 +9,6 @@ import (
 
 	"github.com/boardware-cloud/common/constants"
 	"github.com/boardware-cloud/common/utils"
-	"github.com/boardware-cloud/model/abstract"
 	"github.com/boardware-cloud/model/common"
 	"github.com/boardware-cloud/model/core"
 	"github.com/boardware-cloud/model/notification"
@@ -26,6 +25,10 @@ type Argus struct {
 	ArgusNodeId       *uint                 `gorm:"index:uptime_id_name"`
 	MonitorJSON       MonitorJSON           `gorm:"type:JSON"`
 	NotificationGroup notification.NotificationGroup
+}
+
+func (a Argus) Owner() *core.Account {
+	return accountRepository.GetById(a.AccountId)
 }
 
 func (a Argus) LastNotificationRecord() *NotificationRecord {
@@ -69,12 +72,6 @@ func (a Argus) LastRecord() *ArgusRecord {
 		return nil
 	}
 	return record
-}
-
-func (a Argus) Owner() abstract.Owner {
-	var account core.Account
-	db.Find(&account, a.AccountId)
-	return account
 }
 
 func (a Argus) Monitor() Monitor {
