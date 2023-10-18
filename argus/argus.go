@@ -39,6 +39,16 @@ func (a Argus) LastNotificationRecord() *NotificationRecord {
 	return record
 }
 
+func (a Argus) Records(limit *int64) []ArgusRecord {
+	var records []ArgusRecord
+	ctx := db.Where("argus_id = ?", a.ArgusNodeId)
+	if limit != nil {
+		ctx = ctx.Limit(int(*limit))
+	}
+	ctx.Order("created_at DESC").Find(&records)
+	return records
+}
+
 func (a Argus) SaveNotificationRecord(record *NotificationRecord) *NotificationRecord {
 	db.Save(record)
 	return record

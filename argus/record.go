@@ -18,3 +18,22 @@ func (a *ArgusRecord) BeforeCreate(tx *gorm.DB) (err error) {
 	a.ID = utils.GenerteId()
 	return
 }
+
+type ArgusRecordRepository struct {
+	db *gorm.DB
+}
+
+func (a ArgusRecordRepository) Find(conds ...any) *ArgusRecord {
+	var record ArgusRecord
+	ctx := a.db.Find(&record, conds...)
+	if ctx.RowsAffected == 0 {
+		return nil
+	}
+	return &record
+}
+
+func (a ArgusRecordRepository) List(conds ...any) []ArgusRecord {
+	var records []ArgusRecord
+	a.db.Find(&records, conds...)
+	return records
+}
