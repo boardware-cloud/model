@@ -143,11 +143,12 @@ func (m MonitorJSON) Monitor() Monitor {
 }
 
 func NewArgusRepository(db *gorm.DB) ArgusRepository {
-	return ArgusRepository{db}
+	return ArgusRepository{db, core.NewAccountRepository(db)}
 }
 
 type ArgusRepository struct {
-	db *gorm.DB
+	db                *gorm.DB
+	accountRepository core.AccountRepository
 }
 
 func (a ArgusRepository) Find(conds ...any) *Argus {

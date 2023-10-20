@@ -16,3 +16,11 @@ func (t *Ticket) BeforeCreate(tx *gorm.DB) (err error) {
 	t.ID = utils.GenerteId()
 	return
 }
+
+func NewTicketRepository(db *gorm.DB) TicketRepository {
+	return TicketRepository{db: db}
+}
+
+type TicketRepository struct {
+	db *gorm.DB
+}

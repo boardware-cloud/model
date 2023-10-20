@@ -70,11 +70,10 @@ func (Account) WebAuthnIcon() string {
 }
 
 func (a Account) WebAuthnCredentials() []webauthn.Credential {
-	var credentials []Credential = make([]Credential, 0)
-	db.Where("account_id = ?", a.ID).Find(&credentials)
-	return golambda.Map(credentials, func(_ int, credential Credential) webauthn.Credential {
-		return webauthn.Credential(credential.Credential)
-	})
+	return golambda.Map(webauthRepository.List("account_id = ?", a.ID()),
+		func(_ int, credential Credential) webauthn.Credential {
+			return webauthn.Credential(credential.Credential)
+		})
 }
 
 func (a *Account) BeforeCreate(tx *gorm.DB) (err error) {

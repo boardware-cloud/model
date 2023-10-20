@@ -8,6 +8,7 @@ import (
 var db *gorm.DB
 
 var accountRepository AccountRepository
+var webauthRepository WebauthRepository
 
 func Init(injectDB *gorm.DB) {
 	db = injectDB
@@ -19,5 +20,6 @@ func Init(injectDB *gorm.DB) {
 		&VerificationCode{},
 		&ColdDown{})
 	accountRepository = NewAccountRepository(db)
+	webauthRepository = NewWebauthRepository(db)
 	common.Init(injectDB)
 }
