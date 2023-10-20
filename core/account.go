@@ -49,7 +49,7 @@ func (a Account) CreateColdDown() {
 
 func (a Account) ColdDown(coldDownTime int64) bool {
 	var coldDown ColdDown
-	db.Where("account_id = ?", a.ID).Order("created_at DESC").Limit(1).Find(&coldDown)
+	db.Where("account_id = ?", a.ID()).Order("created_at DESC").Limit(1).Find(&coldDown)
 	return time.Now().UnixMilli()-coldDown.CreatedAt.UnixMilli() > coldDownTime
 }
 
