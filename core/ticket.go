@@ -2,8 +2,10 @@ package core
 
 import (
 	"math/rand"
+	"strings"
 	"time"
 
+	errorCode "github.com/boardware-cloud/common/code"
 	"github.com/boardware-cloud/common/utils"
 	"gorm.io/gorm"
 )
@@ -35,6 +37,26 @@ func (t TicketRepository) CreateTicket(typ string, accountId uint) Ticket {
 	ticket.Type = typ
 	t.db.Save(&ticket)
 	return ticket
+}
+
+func (t TicketRepository) UseTicket(token string) (Ticket, error) {
+	ss := strings.Split(token, ":")
+	var ticket Ticket
+	if len(ss) != 2 {
+		return ticket, errorCode.ErrUnauthorized
+	}
+	ctx := t.db.Find(&ticket, utils.StringToUint(ss[0]))
+	if ctx.RowsAffected == 0 {
+		return ticket, errorCode.ErrUnauthorized
+	}
+	if ticket.Secret != ss[1] {
+		return ticket, errorCode.ErrUnauthorized
+	}
+	t.db.Delete(&ticket)
+	if time.Now().Unix()-ticket.CreatedAt.Unix() > 300 {
+		return ticket, errorCode.ErrUnauthorized
+	}
+	return ticket, nil
 }
 
 const charset = "0123456789"
