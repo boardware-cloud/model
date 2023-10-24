@@ -31,10 +31,11 @@ type TicketRepository struct {
 }
 
 func (t TicketRepository) CreateTicket(typ string, accountId uint) Ticket {
-	var ticket Ticket
-	ticket.AccountId = accountId
-	ticket.Secret = RandomNumberString(16)
-	ticket.Type = typ
+	var ticket Ticket = Ticket{
+		AccountId: accountId,
+		Secret:    RandomNumberString(16),
+		Type:      typ,
+	}
 	t.db.Save(&ticket)
 	return ticket
 }

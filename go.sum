@@ -38,12 +38,6 @@ cloud.google.com/go/storage v1.14.0/go.mod h1:GrKmX003DSIwi9o29oFT7YDnHYwZoctc3f
 dmitri.shuralyov.com/gpu/mtl v0.0.0-20190408044501-666a987793e9/go.mod h1:H6x//7gZCb22OMCxBHrMx7a5I7Hp++hsVxbQ4BYO7hU=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
-github.com/boardware-cloud/common v0.0.0-20230914072942-652098073466 h1:dsPj0ftK+el63JXvnZsPqWqpBHziDoXTpZj1NcSYdBk=
-github.com/boardware-cloud/common v0.0.0-20230914072942-652098073466/go.mod h1:Ztn+PIPt9IhKncTFySl6LOyMhCV+AseebVcV5dDE18Y=
-github.com/boardware-cloud/common v0.0.0-20231010062950-f6755b637db9 h1:crkHmla8ZgRtlGWywGvdYCfmFYMloV8GDHjmMiW54G0=
-github.com/boardware-cloud/common v0.0.0-20231010062950-f6755b637db9/go.mod h1:Ztn+PIPt9IhKncTFySl6LOyMhCV+AseebVcV5dDE18Y=
-github.com/boardware-cloud/common v0.0.0-20231010063056-1d15df636aa2 h1:acfqkv20XGh6/vaJ6uywzTXnEJMNHRxou9nPXZEXcxg=
-github.com/boardware-cloud/common v0.0.0-20231010063056-1d15df636aa2/go.mod h1:Ztn+PIPt9IhKncTFySl6LOyMhCV+AseebVcV5dDE18Y=
 github.com/boardware-cloud/common v0.0.0-20231010074109-e48c7fc51b44 h1:W3F31AKEtJ8oL2Ll0a2QT3JkBW/igUwFjCWLdVyReCk=
 github.com/boardware-cloud/common v0.0.0-20231010074109-e48c7fc51b44/go.mod h1:Ztn+PIPt9IhKncTFySl6LOyMhCV+AseebVcV5dDE18Y=
 github.com/bwmarrin/snowflake v0.3.0 h1:xm67bEhkKh6ij1790JB83OujPR5CzNe8QuQqAgISZN0=
