@@ -30,6 +30,15 @@ type TicketRepository struct {
 	db *gorm.DB
 }
 
+func (t TicketRepository) Find(conds ...any) *Ticket {
+	var ticket Ticket
+	ctx := t.db.Find(&ticket, conds...)
+	if ctx.RowsAffected == 0 {
+		return nil
+	}
+	return &ticket
+}
+
 func (t TicketRepository) CreateTicket(typ string, accountId uint) Ticket {
 	var ticket Ticket = Ticket{
 		AccountId: accountId,
