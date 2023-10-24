@@ -18,6 +18,10 @@ func (v VerificationCodeRepository) Find(conds ...any) *VerificationCode {
 	return &verificationCode
 }
 
+func (v VerificationCodeRepository) Save(code *VerificationCode) {
+	v.db.Save(code)
+}
+
 func (v VerificationCodeRepository) Get(email string, purpose constants.VerificationCodePurpose) *VerificationCode {
 	var verificationCode VerificationCode
 	ctx := v.db.Where("identity = ?", email).Where("purpose = ?", purpose).Order("created_at DESC").Find(&verificationCode)
