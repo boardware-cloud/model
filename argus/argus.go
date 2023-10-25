@@ -151,6 +151,11 @@ type ArgusRepository struct {
 	accountRepository core.AccountRepository
 }
 
+func (a ArgusRepository) Save(monitor *Argus) *Argus {
+	a.db.Save(&monitor)
+	return monitor
+}
+
 func (a ArgusRepository) Find(conds ...any) *Argus {
 	var argus Argus
 	ctx := a.db.Find(&argus, conds...)
