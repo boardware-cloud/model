@@ -6,7 +6,6 @@ import (
 	constants "github.com/boardware-cloud/common/constants/account"
 	"github.com/boardware-cloud/common/utils"
 	"github.com/boardware-cloud/model/abstract"
-	"github.com/boardware-cloud/model/common"
 	"github.com/chenyunda218/golambda"
 	"github.com/go-webauthn/webauthn/webauthn"
 	"gorm.io/gorm"
@@ -37,10 +36,6 @@ func (Account) TypeName() string {
 
 func (a Account) Own(asset abstract.Asset) bool {
 	return abstract.Own(a, asset)
-}
-
-func ListAccount(index, limit int64) common.List[Account] {
-	return common.ListModel(&[]Account{}, index, limit)
 }
 
 func (a Account) CreateColdDown() {

@@ -61,6 +61,7 @@ func (a *Argus) Update(n Argus) {
 	a.Status = n.Status
 	a.Type = n.Type
 	a.MonitorJSON = n.MonitorJSON
+	a.NotificationGroup = n.NotificationGroup
 	db.Save(a)
 }
 
