@@ -32,11 +32,12 @@ func (a Argus) Owner() *core.Account {
 }
 
 func (a Argus) LastNotificationRecord() *NotificationRecord {
-	record, err := common.Find(&NotificationRecord{})
-	if err != nil {
+	var record NotificationRecord
+	ctx := db.Order("created_at DESC").Find(&record)
+	if ctx.RowsAffected == 0 {
 		return nil
 	}
-	return record
+	return &record
 }
 
 func (a Argus) Records(limit *int64) []ArgusRecord {
