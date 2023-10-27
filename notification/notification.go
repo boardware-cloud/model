@@ -64,9 +64,10 @@ type Entity interface {
 }
 
 type Email struct {
-	To  []string `json:"to"`
-	Cc  []string `json:"cc"`
-	Bcc []string `json:"bcc"`
+	To       []string `json:"to"`
+	Cc       []string `json:"cc"`
+	Bcc      []string `json:"bcc"`
+	Template *string  `json:"template"`
 }
 
 type Webhook struct {
