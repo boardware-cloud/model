@@ -9,6 +9,7 @@ import (
 
 	"github.com/boardware-cloud/common/constants"
 	"github.com/boardware-cloud/common/utils"
+	"github.com/boardware-cloud/model"
 	"github.com/boardware-cloud/model/common"
 	"github.com/boardware-cloud/model/core"
 	"github.com/boardware-cloud/model/notification"
@@ -144,8 +145,8 @@ func (m MonitorJSON) Monitor() Monitor {
 	return nil
 }
 
-func NewArgusRepository(db *gorm.DB) ArgusRepository {
-	return ArgusRepository{db, *core.GetAccountRepository()}
+func NewArgusRepository() *ArgusRepository {
+	return &ArgusRepository{model.GetDB(), *core.GetAccountRepository()}
 }
 
 type ArgusRepository struct {

@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/boardware-cloud/common/utils"
+	"github.com/boardware-cloud/model"
 	"gorm.io/gorm"
 )
 
@@ -29,7 +30,7 @@ func GetArgusRecordRepository() *ArgusRecordRepository {
 }
 
 func NewArgusRecordRepository() *ArgusRecordRepository {
-	return &ArgusRecordRepository{db: db}
+	return &ArgusRecordRepository{model.GetDB()}
 }
 
 type ArgusRecordRepository struct {
