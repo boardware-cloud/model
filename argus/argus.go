@@ -145,6 +145,15 @@ func (m MonitorJSON) Monitor() Monitor {
 	return nil
 }
 
+var argusRepository *ArgusRepository
+
+func GetArgusRepository() *ArgusRepository {
+	if argusRecordRepository == nil {
+		argusRepository = NewArgusRepository()
+	}
+	return argusRepository
+}
+
 func NewArgusRepository() *ArgusRepository {
 	return &ArgusRepository{model.GetDB(), *core.GetAccountRepository()}
 }
