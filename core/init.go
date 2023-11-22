@@ -1,17 +1,14 @@
 package core
 
 import (
-	"github.com/boardware-cloud/model/common"
+	"github.com/boardware-cloud/model"
 	"gorm.io/gorm"
 )
 
 var db *gorm.DB
 
-var accountRepository AccountRepository
-var webauthRepository WebauthRepository
-
-func Init(injectDB *gorm.DB) {
-	db = injectDB
+func Init() {
+	db = model.GetDB()
 	db.AutoMigrate(&Account{},
 		&Credential{},
 		&SessionData{},
@@ -19,7 +16,4 @@ func Init(injectDB *gorm.DB) {
 		&Ticket{},
 		&VerificationCode{},
 		&ColdDown{})
-	accountRepository = NewAccountRepository(db)
-	webauthRepository = NewWebauthRepository(db)
-	common.Init(injectDB)
 }

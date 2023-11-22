@@ -28,7 +28,7 @@ type Argus struct {
 }
 
 func (a Argus) Owner() *core.Account {
-	return accountRepository.GetById(a.AccountId)
+	return core.GetAccountRepository().GetById(a.AccountId)
 }
 
 func (a Argus) LastNotificationRecord() *NotificationRecord {
@@ -145,7 +145,7 @@ func (m MonitorJSON) Monitor() Monitor {
 }
 
 func NewArgusRepository(db *gorm.DB) ArgusRepository {
-	return ArgusRepository{db, core.NewAccountRepository(db)}
+	return ArgusRepository{db, *core.GetAccountRepository()}
 }
 
 type ArgusRepository struct {

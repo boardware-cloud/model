@@ -4,11 +4,21 @@ import (
 	"github.com/boardware-cloud/common/code"
 	constants "github.com/boardware-cloud/common/constants/account"
 	"github.com/boardware-cloud/common/utils"
+	"github.com/boardware-cloud/model"
 	"gorm.io/gorm"
 )
 
-func NewAccountRepository(db *gorm.DB) AccountRepository {
-	return AccountRepository{db: db}
+var accountRepository *AccountRepository
+
+func GetAccountRepository() *AccountRepository {
+	if accountRepository == nil {
+		accountRepository = NewAccountRepository()
+	}
+	return accountRepository
+}
+
+func NewAccountRepository() *AccountRepository {
+	return &AccountRepository{db: model.GetDB()}
 }
 
 type AccountRepository struct {
@@ -51,6 +61,6 @@ func (a AccountRepository) Save(account *Account) {
 	a.db.Save(account)
 }
 
-func NewVerificationCodeRepository(db *gorm.DB) VerificationCodeRepository {
-	return VerificationCodeRepository{db}
+func NewVerificationCodeRepository() *VerificationCodeRepository {
+	return &VerificationCodeRepository{model.GetDB()}
 }

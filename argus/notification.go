@@ -2,6 +2,7 @@ package argus
 
 import (
 	"github.com/boardware-cloud/common/utils"
+	"github.com/boardware-cloud/model"
 	"github.com/boardware-cloud/model/notification"
 	"gorm.io/gorm"
 )
@@ -18,8 +19,17 @@ func (a *NotificationRecord) BeforeCreate(tx *gorm.DB) (err error) {
 	return err
 }
 
-func NewNotificationRecordRepository(db *gorm.DB) NotificationRecordRepository {
-	return NotificationRecordRepository{db: db}
+var notificationRecordRepository *NotificationRecordRepository
+
+func GetNotificationRecordRepository() *NotificationRecordRepository {
+	if notificationRecordRepository == nil {
+		notificationRecordRepository = NewNotificationRecordRepository()
+	}
+	return notificationRecordRepository
+}
+
+func NewNotificationRecordRepository() *NotificationRecordRepository {
+	return &NotificationRecordRepository{db: model.GetDB()}
 }
 
 type NotificationRecordRepository struct {

@@ -7,8 +7,18 @@ import (
 
 	errorCode "github.com/boardware-cloud/common/code"
 	"github.com/boardware-cloud/common/utils"
+	"github.com/boardware-cloud/model"
 	"gorm.io/gorm"
 )
+
+var ticketRepository *TicketRepository
+
+func GetTicketRepository() *TicketRepository {
+	if ticketRepository == nil {
+		ticketRepository = NewTicketRepository()
+	}
+	return ticketRepository
+}
 
 type Ticket struct {
 	gorm.Model
@@ -22,8 +32,8 @@ func (t *Ticket) BeforeCreate(tx *gorm.DB) (err error) {
 	return
 }
 
-func NewTicketRepository(db *gorm.DB) TicketRepository {
-	return TicketRepository{db: db}
+func NewTicketRepository() *TicketRepository {
+	return &TicketRepository{db: model.GetDB()}
 }
 
 type TicketRepository struct {

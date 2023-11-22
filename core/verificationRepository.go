@@ -5,6 +5,15 @@ import (
 	"gorm.io/gorm"
 )
 
+var verificationCodeRepository *VerificationCodeRepository
+
+func GetVerificationCodeRepository() *VerificationCodeRepository {
+	if verificationCodeRepository == nil {
+		verificationCodeRepository = NewVerificationCodeRepository()
+	}
+	return verificationCodeRepository
+}
+
 type VerificationCodeRepository struct {
 	db *gorm.DB
 }

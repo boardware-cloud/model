@@ -5,13 +5,14 @@ import (
 	"encoding/json"
 
 	"github.com/boardware-cloud/common/code"
+	"github.com/boardware-cloud/model"
 	"gorm.io/gorm"
 )
 
 var db *gorm.DB
 
-func Init(injectDB *gorm.DB) {
-	db = injectDB
+func init() {
+	db = model.GetDB()
 }
 
 type PairList []Pair

@@ -19,6 +19,19 @@ func (a *ArgusRecord) BeforeCreate(tx *gorm.DB) (err error) {
 	return
 }
 
+var argusRecordRepository *ArgusRecordRepository
+
+func GetArgusRecordRepository() *ArgusRecordRepository {
+	if argusRecordRepository == nil {
+		argusRecordRepository = NewArgusRecordRepository()
+	}
+	return argusRecordRepository
+}
+
+func NewArgusRecordRepository() *ArgusRecordRepository {
+	return &ArgusRecordRepository{db: db}
+}
+
 type ArgusRecordRepository struct {
 	db *gorm.DB
 }

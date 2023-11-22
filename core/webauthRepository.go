@@ -1,9 +1,21 @@
 package core
 
-import "gorm.io/gorm"
+import (
+	"github.com/boardware-cloud/model"
+	"gorm.io/gorm"
+)
 
-func NewWebauthRepository(db *gorm.DB) WebauthRepository {
-	return WebauthRepository{db}
+var webauthRepository *WebauthRepository
+
+func GetWebauthRepository() *WebauthRepository {
+	if webauthRepository == nil {
+		webauthRepository = NewWebauthRepository()
+	}
+	return webauthRepository
+}
+
+func NewWebauthRepository() *WebauthRepository {
+	return &WebauthRepository{model.GetDB()}
 }
 
 type WebauthRepository struct {
