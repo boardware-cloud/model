@@ -2,13 +2,11 @@ package core
 
 import (
 	"github.com/boardware-cloud/model"
-	"gorm.io/gorm"
 )
 
-var db *gorm.DB
+var db = model.GetDB()
 
-func Init() {
-	db = model.GetDB()
+func init() {
 	db.AutoMigrate(&Account{},
 		&Credential{},
 		&SessionData{},
