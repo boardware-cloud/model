@@ -57,3 +57,7 @@ func (s SessionDataRepository) Find(conds ...any) *SessionData {
 func (s SessionDataRepository) GetById(id uint) *SessionData {
 	return s.Find(id)
 }
+
+func (s SessionDataRepository) Save(sessionData *SessionData) {
+	s.db.Save(sessionData)
+}
