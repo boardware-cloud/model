@@ -1,21 +1,24 @@
 package core
 
 import (
+	"github.com/Dparty/common/singleton"
 	constants "github.com/boardware-cloud/common/constants/account"
+	"github.com/boardware-cloud/model"
 	"gorm.io/gorm"
 )
 
-var verificationCodeRepository *VerificationCodeRepository
+var verificationCodeRepository = singleton.NewSingleton[VerificationCodeRepository](NewVerificationCodeRepository, singleton.Eager)
 
 func GetVerificationCodeRepository() *VerificationCodeRepository {
-	if verificationCodeRepository == nil {
-		verificationCodeRepository = NewVerificationCodeRepository()
-	}
-	return verificationCodeRepository
+	return verificationCodeRepository.Get()
 }
 
 type VerificationCodeRepository struct {
 	db *gorm.DB
+}
+
+func NewVerificationCodeRepository() *VerificationCodeRepository {
+	return &VerificationCodeRepository{model.GetDB()}
 }
 
 func (v VerificationCodeRepository) Find(conds ...any) *VerificationCode {

@@ -3,27 +3,27 @@ package model
 import (
 	"fmt"
 
+	"github.com/Dparty/common/singleton"
 	"github.com/boardware-cloud/common/config"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
-var db *gorm.DB
+var db = singleton.NewSingleton[gorm.DB](func() *gorm.DB {
+	ndb, err := NewConnection(
+		config.GetString("database.user"),
+		config.GetString("database.password"),
+		config.GetString("database.host"),
+		config.GetString("database.port"),
+		config.GetString("database.database"))
+	if err != nil {
+		panic(err)
+	}
+	return ndb
+}, singleton.Eager)
 
 func GetDB() *gorm.DB {
-	if db == nil {
-		var err error
-		db, err = NewConnection(
-			config.GetString("database.user"),
-			config.GetString("database.password"),
-			config.GetString("database.host"),
-			config.GetString("database.port"),
-			config.GetString("database.database"))
-		if err != nil {
-			panic(err)
-		}
-	}
-	return db
+	return db.Get()
 }
 
 func NewConnection(user, password, host, port, database string) (*gorm.DB, error) {

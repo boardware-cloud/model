@@ -3,6 +3,7 @@ package argus
 import (
 	"time"
 
+	"github.com/Dparty/common/singleton"
 	"github.com/boardware-cloud/common/utils"
 	"github.com/boardware-cloud/model"
 	"gorm.io/gorm"
@@ -20,13 +21,10 @@ func (a *ArgusRecord) BeforeCreate(tx *gorm.DB) (err error) {
 	return
 }
 
-var argusRecordRepository *ArgusRecordRepository
+var argusRecordRepository = singleton.NewSingleton[ArgusRecordRepository](NewArgusRecordRepository, singleton.Eager)
 
 func GetArgusRecordRepository() *ArgusRecordRepository {
-	if argusRecordRepository == nil {
-		argusRecordRepository = NewArgusRecordRepository()
-	}
-	return argusRecordRepository
+	return argusRecordRepository.Get()
 }
 
 func NewArgusRecordRepository() *ArgusRecordRepository {

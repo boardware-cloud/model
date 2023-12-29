@@ -1,6 +1,7 @@
 package core
 
 import (
+	"github.com/Dparty/common/singleton"
 	"github.com/boardware-cloud/common/code"
 	constants "github.com/boardware-cloud/common/constants/account"
 	"github.com/boardware-cloud/common/utils"
@@ -8,16 +9,13 @@ import (
 	"gorm.io/gorm"
 )
 
-var accountRepository *AccountRepository
+var accountRepository = singleton.NewSingleton[AccountRepository](newAccountRepository, singleton.Eager)
 
 func GetAccountRepository() *AccountRepository {
-	if accountRepository == nil {
-		accountRepository = NewAccountRepository()
-	}
-	return accountRepository
+	return accountRepository.Get()
 }
 
-func NewAccountRepository() *AccountRepository {
+func newAccountRepository() *AccountRepository {
 	return &AccountRepository{model.GetDB()}
 }
 
@@ -59,8 +57,4 @@ func (a AccountRepository) Create(email, password string, role constants.Role) (
 
 func (a AccountRepository) Save(account *Account) {
 	a.db.Save(account)
-}
-
-func NewVerificationCodeRepository() *VerificationCodeRepository {
-	return &VerificationCodeRepository{model.GetDB()}
 }

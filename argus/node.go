@@ -1,6 +1,8 @@
 package argus
 
 import (
+	"time"
+
 	"github.com/boardware-cloud/common/utils"
 	"gorm.io/gorm"
 )
@@ -8,7 +10,7 @@ import (
 type ArgusNode struct {
 	gorm.Model
 	Heartbeat         int64
-	HeartbeatInterval int64
+	HeartbeatInterval time.Duration
 }
 
 func (a *ArgusNode) BeforeCreate(tx *gorm.DB) (err error) {

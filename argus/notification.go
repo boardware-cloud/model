@@ -1,6 +1,7 @@
 package argus
 
 import (
+	"github.com/Dparty/common/singleton"
 	"github.com/boardware-cloud/common/utils"
 	"github.com/boardware-cloud/model"
 	"github.com/boardware-cloud/model/notification"
@@ -19,13 +20,10 @@ func (a *NotificationRecord) BeforeCreate(tx *gorm.DB) (err error) {
 	return err
 }
 
-var notificationRecordRepository *NotificationRecordRepository
+var notificationRecordRepository = singleton.NewSingleton[NotificationRecordRepository](NewNotificationRecordRepository, singleton.Eager)
 
 func GetNotificationRecordRepository() *NotificationRecordRepository {
-	if notificationRecordRepository == nil {
-		notificationRecordRepository = NewNotificationRecordRepository()
-	}
-	return notificationRecordRepository
+	return notificationRecordRepository.Get()
 }
 
 func NewNotificationRecordRepository() *NotificationRecordRepository {

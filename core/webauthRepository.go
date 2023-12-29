@@ -1,17 +1,15 @@
 package core
 
 import (
+	"github.com/Dparty/common/singleton"
 	"github.com/boardware-cloud/model"
 	"gorm.io/gorm"
 )
 
-var webauthRepository *WebauthRepository
+var webauthRepository = singleton.NewSingleton[WebauthRepository](NewWebauthRepository, singleton.Eager)
 
 func GetWebauthRepository() *WebauthRepository {
-	if webauthRepository == nil {
-		webauthRepository = NewWebauthRepository()
-	}
-	return webauthRepository
+	return webauthRepository.Get()
 }
 
 func NewWebauthRepository() *WebauthRepository {

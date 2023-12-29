@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/Dparty/common/singleton"
 	"github.com/boardware-cloud/common/constants"
 	"github.com/boardware-cloud/common/utils"
 	"github.com/boardware-cloud/model"
@@ -145,13 +146,10 @@ func (m MonitorJSON) Monitor() Monitor {
 	return nil
 }
 
-var argusRepository *ArgusRepository
+var argusRepository = singleton.NewSingleton[ArgusRepository](NewArgusRepository, singleton.Eager)
 
 func GetArgusRepository() *ArgusRepository {
-	if argusRecordRepository == nil {
-		argusRepository = NewArgusRepository()
-	}
-	return argusRepository
+	return argusRepository.Get()
 }
 
 func NewArgusRepository() *ArgusRepository {

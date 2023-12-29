@@ -3,7 +3,7 @@ module github.com/boardware-cloud/model
 go 1.18
 
 require (
-	github.com/boardware-cloud/common v0.0.0-20231010074109-e48c7fc51b44
+	github.com/boardware-cloud/common v0.0.0-20231123013544-58c638885a50
 	github.com/chenyunda218/golambda v0.0.0-20230809035428-25245dc9a8bd
 	github.com/go-webauthn/webauthn v0.8.6
 	gorm.io/driver/mysql v1.5.1
@@ -11,6 +11,7 @@ require (
 )
 
 require (
+	github.com/Dparty/common v0.0.0-20231227094807-cd1e09731671 // indirect
 	github.com/bwmarrin/snowflake v0.3.0 // indirect
 	github.com/bytedance/sonic v1.10.0-rc2 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20230717121745-296ad89f973d // indirect
@@ -52,10 +53,10 @@ require (
 	github.com/ugorji/go/codec v1.2.11 // indirect
 	github.com/x448/float16 v0.8.4 // indirect
 	golang.org/x/arch v0.4.0 // indirect
-	golang.org/x/crypto v0.11.0 // indirect
-	golang.org/x/net v0.12.0 // indirect
-	golang.org/x/sys v0.10.0 // indirect
-	golang.org/x/text v0.11.0 // indirect
+	golang.org/x/crypto v0.14.0 // indirect
+	golang.org/x/net v0.17.0 // indirect
+	golang.org/x/sys v0.13.0 // indirect
+	golang.org/x/text v0.13.0 // indirect
 	google.golang.org/protobuf v1.31.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
